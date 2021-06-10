@@ -19,16 +19,7 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
-
-> 本文主要测试了
-> - el表单的基本使用,
-> - 基本表单元素，
-> - 表单元素的校验，
-> - 表单css格式
-> - refs索引
-> - message消息弹窗
-> - 登入的axios
->
-> 百度
->
-> 
+ 
+ # 运行失败
+ 可以尝试删除node_modules下除了.bin以外的所有依赖，然后运行npm install ,再运行npm run dev
+ 
