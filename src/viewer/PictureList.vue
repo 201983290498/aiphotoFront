@@ -1,0 +1,276 @@
+<template>
+  <div>
+    <div class="upload_warp_left div-height" >
+      <Button icon="ios-cloud-upload-outline" class="btn success btn1"  @click="addPic">添加图片</Button>
+      <Button icon="ios-cloud-upload-outline" class="btn success text1 btn1" @click="deleteStatus">删除图片</Button>
+      <Button icon="ios-cloud-upload-outline" class="btn success btn2"  @click="quitDelete">取消删除</Button>
+      <Button icon="ios-cloud-upload-outline" class="btn success text1 btn2" @click="comDelete">确认删除</Button>
+      <Button icon="ios-cloud-upload-outline" class="face btn success" id="face1" @click="faceRecog">人脸聚合</Button>
+      <Button icon="ios-cloud-upload-outline" class="face btn success " id="face3" @click="comRecog(0)">取消</Button>
+      <Button icon="ios-cloud-upload-outline" class="face btn success " id="face2" @click="comRecog(1)">确认聚合</Button>
+    </div>
+    <ul class="myul" >
+      <li v-for="picurl in pictureList" class="div">
+          <div class="top" >
+            <div class="text" >
+              {{picurl.picname}}
+            </div>
+            <img src="/static/icon/delete.png" class="del" :id="'pic'+picurl.id" @click="deletePic(picurl.id)">
+          </div>
+          <a :href="'http://localhost:8080/#/pictureshow/' + picurl.id +'/' + picurl.owner" target="_blank">
+          <img :src="picurl.b64" alt="图片i">
+          </a>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "PictureList",
+  data() {
+    return {
+      username: this.$route.params.username,
+      categy: this.$route.params.categy,
+      ispublic: this.$route.params.ispublic,
+      deletelist:[],
+      pictureList: []
+    }
+  },
+  methods: {
+    getPic: function (){
+      let username= this.$route.params.username;
+      let categy = this.$route.params.categy;
+      let ispublic = this.$route.params.ispublic;
+      let vm = this;
+      let add = "/api/b64pictures?username="+username+ "&categy=" + categy + "&ispublic=" + ispublic;
+      this.axios({
+        method: 'get',
+        url: add
+      }).then(function(resp){
+        vm.pictureList = resp.data;
+        console.log(resp.data)
+      });
+    },
+
+    changeBtn: function (sty1,sty2){
+      var btns = document.getElementsByClassName("btn1");
+      for (let i = 0;i<btns.length;i++) {
+        btns[i].style.display = sty1;
+      }
+      btns = document.getElementsByClassName("btn2");
+      for (let i = 0;i<btns.length;i++)
+        btns[i].style.display = sty2;
+    },
+
+    showFloatText: function (sty){
+      var top =  document.getElementsByClassName("top");
+      for (let i = 0;i<top.length;i++)
+        top[i].style.display = sty;
+    },
+
+    deleteStatus: function (){
+      this.showFloatText("inline");
+      this.changeBtn("none","inline")
+      this.deletelist = [];
+    },
+
+    changeIcon: function (Id){
+      let icon = document.getElementById("pic"+Id);
+      if(icon.getAttribute("src")=="/static/icon/delete.png")
+          icon.setAttribute("src", "/static/icon/confirm.png") ;
+      else
+        icon.setAttribute("src", "/static/icon/delete.png");
+    },
+
+    quitDelete: function (){
+      for(let i=0;i<this.deletelist.length;i++){
+        this.changeIcon(this.deletelist[i]);
+      }
+      this.showFloatText("none");
+      this.changeBtn("inline","none");
+      this.deletelist= [];
+    },
+
+    deletePic: function (picId) {
+      console.log(this.deletelist);
+      let index = this.deletelist.indexOf(picId);
+      if ( index < 0) {
+        this.deletelist.push(picId);
+        this.changeIcon(picId);
+      }else{
+        this.deletelist.splice(index,index+1);
+        this.changeIcon(picId);
+      }
+    },
+    comDelete: function (){
+      /**
+       * 因为是根据id找的标签，所以不同的图片可能有相同的标签，为了方便，我们先把标签变回来，然后删除图片。
+       * @type {default.methods}
+       */
+      let vm = this;
+      for(let i=0;i<this.deletelist.length;i++){
+        this.changeIcon(this.deletelist[i]);
+      }
+      this.showFloatText("none");
+      this.changeBtn("inline","none");
+      this.axios({
+        method: "post",
+        data: vm.deletelist,
+        url: '/api/b64pictures/delete'
+      }).then(function (reps){
+        vm.$message.success("成功删除"+reps.data+"张图片");
+      });
+      this.$router.push({name:"PictureListWait",params:{username: this.username,categy:this.categy,ispublic:this.ispublic}});
+      this.deletelist = [];
+  },
+    addPic: function (){
+      var vm = this;
+      this.$router.push({name:"AddPic", params:{username: vm.username,categy: vm.categy,ispublic: vm.ispublic}});
+      console.log("添加图片")
+    },
+
+    faceRecog: function (){
+      this.$message.info("请选择一张图片");
+      if(!(this.categy=="人物")&&this.ispublic){
+        this.$message.warning("当前分类无法聚合");
+      }else{
+        this.changeBtn("none","none");
+        document.getElementById("face1").style.display = "none";
+        document.getElementById("face2").style.display = "inline";
+        document.getElementById("face3").style.display = "inline";
+        this.showFloatText("inline");
+        this.deletelist = [];
+      }
+    },
+    comRecog:function (flag){
+      this.showFloatText("none");
+      document.getElementById("face1").style.display = "inline";
+      document.getElementById("face2").style.display = "none";
+      document.getElementById("face3").style.display = "none";
+      this.changeBtn("inline","none");
+      for(let i=0;i<this.deletelist.length;i++){
+        this.changeIcon(this.deletelist[i]);
+      }
+      if(flag == 1){
+        console.log("进行人脸聚合");
+        if(this.deletelist.length!=1)
+          this.$message.warning("所选图片图片的数量不正确");
+        else{
+          let vm = this;
+          let add = '/api/face/collections?id='+vm.deletelist[0];
+          this.axios({
+            method: 'get',
+            url: add
+          }).then(function (reps){
+            if(reps.data.length == 0)
+              vm.$message.warning("聚合失败");
+            else {
+              vm.pictureList = reps.data;
+              console.log(reps.data)
+              vm.$message.success("聚合成功");
+            }
+          });
+        }
+      }
+      this.deletelist = [];
+    }
+
+  },
+  created(){
+    this.getPic();
+  }
+}
+</script>
+
+<style scoped>
+
+.div-height {
+  width:100%;
+  height:35px;
+  background-color: #eeeeee;
+}
+.upload_warp_left {
+  float: left;
+}
+.success{
+  background: rgb(45, 140, 240);
+  color:#fff;
+  padding: 0px 8px ;
+  font-size: 20px;
+}
+.myul{
+  list-style-type: none;
+  background-color: aqua;
+  padding: 0px;
+
+}
+.myul li{
+  width: 200px;
+  height: 177px;
+  float: left;
+  padding: 0px 2px 3px 0px;
+  display: inline-block;
+  border: 2px solid #ccc;
+  background-color: #eee;
+  position: relative;
+}
+.myul img{
+  max-width: 100%;
+  max-height: 100%;
+  /*margin-left: 20px;*/
+}
+.div {
+  line-height: 170px;
+  display: inline;
+  text-align: center;
+  /*background-color: #eee;*/
+  cursor: pointer;
+  vertical-align: center;
+
+}
+
+.top {
+  display: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 30px;
+  background-color: rgba(0, 0, 0, 0.4);
+  line-height: 30px;
+  text-align: left;
+  color: #fff;
+  font-size: 12px;
+  text-indent: 4px;
+}
+.text {
+  white-space: nowrap;
+  width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.del {
+  position: absolute;
+  top: 6px;
+  width: 16px;
+  right: 4px;
+}
+.text1{
+  margin-left: 40px;
+  background-color: orange;
+}
+.btn1{
+  display: inline;
+}
+.btn2{
+  display: none;
+}
+.face{
+  display: inline;
+  float: right;
+  margin-right: 40px;
+}
+#face2,#face3{
+  display: none;
+}
+</style>
