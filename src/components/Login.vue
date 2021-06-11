@@ -24,9 +24,9 @@ export default {
     return {
       form: {
         name: '',
-        password: ''
+        password: 'dsadsa'
       },
-      rule: {//对元素内容进行验证
+      rule: {
         name: [
           {required: true, message: '请输入用户名',trigger: 'blur'},
           {min: 5, max: 12, message: '长度在5-12各字符中间',trigger: 'blur'}

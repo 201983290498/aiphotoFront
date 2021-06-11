@@ -6,13 +6,11 @@
 
 <script>
 import HelloWorld from './components/DashBoard'
-// import router from './router'
 export default {
   name: 'App',
   components: {
     HelloWorld
   }
-  // router
 }
 </script>
 
