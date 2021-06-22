@@ -15,6 +15,8 @@ export default {
 </script>
 
 <style>
+@import url("css/reset.css");
+@import url("css/base.css");
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   text-align: center;
@@ -27,6 +29,5 @@ export default {
   background-size: cover;
   position: fixed;
 }
-
 
 </style>

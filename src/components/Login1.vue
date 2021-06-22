@@ -1,19 +1,14 @@
 <template>
-
   <div class="login-box">
-    <div class="title-wrapper">
-      <a href="javascript:;"><span class="title-name">AIPhoto</span></a>
-      <p class="title-content">WELCOME TO OUR AIPHOTO SYSTEM</p>
-    </div>
-     <!-- <h2 class="title">AIPhoto</h2> -->
-    <el-form class="form1" ref="form" :rules="rule" :model="form" label-width="80px">  
-      <div class="input" prop="name">
-        <i class="iconfont"></i>
-        <el-input id="in" v-model="form.name" placeholder="用户名"></el-input>
-      </div>
-      <div class="input">
-        <el-input type="password" v-model="form.password" placeholder="密码"></el-input>
-      </div>
+    <h2>AIPhoto</h2>
+    <el-form class="form1" ref="form" :rules="rule" :model="form" label-width="80px">
+      <el-form-item  prop="name">
+        <!-- <span class="iconfont">&#xe71c;</span> -->
+        <el-input id="in" v-model="form.name" placeholder="请输入用户名"></el-input>
+      </el-form-item>
+      <el-form-item >
+        <el-input type="password" v-model="form.password" placeholder="请输入密码"></el-input>
+      </el-form-item>
       <el-form-item label-width="0">
         <el-button class="button1" type="primary" @click="onSubmit('form')"><b>登入</b></el-button>
         <el-button class="button2" type="primary" @click="Register()"><b>注册</b></el-button>
@@ -84,19 +79,17 @@ export default {
 </script>
 
 <style scoped>
-@import url('../css/login.css');
+@import url('../css/base.css');
 @import url('../iconfont/iconfont1/iconfont.css');
-
-
 .login-box {
   width: 500px;
-  border: 1px solid  #E2E4EC;
+  height: 300px;
+  border: 1px solid #42b983;
   margin: 150px auto; /*margin调剧中*/
-  border-radius: 5px;
+  border-radius: 20px;
   box-shadow: 0px 0px 20px;
-  background-color: #fff;
-  padding-left: 24px;
-  padding-right: 24px; /*表单到边框的内间距上右下左*/
+
+  padding: 20px 20px 20px 20px; /*表单到边框的内间距上右下左*/
 
 }
 
