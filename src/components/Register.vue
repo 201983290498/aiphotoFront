@@ -1,33 +1,37 @@
 <template>
   <div class="reg-box">
     <el-form ref="form" :rules="rule" :model="form" label-width="100px" >
-      <el-form-item align="center">
-        <h2 ><b>注册</b></h2>
-      </el-form-item>
-      <el-form-item label="账号注册" prop="username">
-        <el-input v-model="form.username" type="text" placeholder="请输入用户名"></el-input>
-      </el-form-item>
+    <div class="title-wrapper">
+      <a href="javascript:;"><span class="title-name">AIPhoto</span></a>
+      <button class="titlebtn clearfix"><i class="far fa fa-language"></i></button>
+      <p class="title-content">WELCOME TO OUR AIPHOTO SYSTEM</p>
+    </div >
+      <div class='input'  prop="username">
+        <input  v-model="form.username" type="text" placeholder="用户名">
+      </div>
+      <div class='input' >
+          <input v-model="form.trName" type="text" placeholder="真实姓名">
+      </div>
+      <div class='input'>
+          <input v-model="form.email" type="text" placeholder="邮箱">
+      </div>
 
-      <el-form-item label="姓名" >
-          <el-input v-model="form.trName" type="text" placeholder="请输入真实姓名"></el-input>
-      </el-form-item>
+      <div class='input'  prop="password">
+          <input v-model="form.password" type="text" placeholder="密码">
+      </div>
 
-      <el-form-item label="注册邮箱">
-          <el-input v-model="form.email" type="text" placeholder="请输入注册的邮箱"></el-input>
-      </el-form-item>
-
-      <el-form-item label="密码"  prop="password">
-          <el-input v-model="form.password" type="text" placeholder="请输入注册的邮箱"></el-input>
-      </el-form-item>
-
-      <el-form-item label="确认密码">
-        <el-input v-model="form.comPassword" type="text" placeholder="确认密码"></el-input>
-      </el-form-item>
-
-      <el-form-item>
-        <el-button class="button1" type="primary" @click="Submit('form')" style="margin-left: 20px ">注册</el-button>
-        <el-button class="button2" type="primary" @click="back()">退出</el-button>
-      </el-form-item>
+      <div class='input'>
+        <input v-model="form.pripassword" type="text" placeholder="独立密码">
+      </div>
+      <div class="loginbtn">
+        <el-button class="button1 font1" type="primary" @click="Submit('form')"><span class="iconfont">&#xe71c;</span> 注册</el-button>
+      </div>
+      
+      <div class="clearfix1 clearfix">
+      <ul >
+        <li @click="Register()"><span class="register" @click="back()" >返回登入</span></li>
+      </ul>
+      </div>
 
     </el-form>
 
@@ -44,7 +48,7 @@ export default {
         email: '',
         trName: '',
         password: '',
-        comPassword: '',
+        pripassword: '',
       },
       rule: {
         username: [
@@ -63,16 +67,12 @@ export default {
   methods: {
     Submit(formName){
       var vm = this;
-      var str = vm.form.comPassword;
-      var str1 = vm.form.password;
       this.$refs[formName].validate((valid) =>{
         console.log('进行校验');
         if(valid){
           vm.$message.info('正在注册');
           if(vm.form.email.match('.*?@.*?')==null){
             vm.$message.error('邮箱错误');
-          }else if(str != str1){
-            vm.$message.error('两次输入的密码不正确');
           }else{
             vm.axios({
                 method: "post",
@@ -80,6 +80,7 @@ export default {
                 data: {
                  username: vm.form.username,
                  password: vm.form.password,
+                 pripassword: vm.form.pripassword,
                  truName: vm.form.trName,
                  email: vm.form.email
                 }
@@ -89,7 +90,7 @@ export default {
                 vm.$message.info("注册成功。")
                 vm.$router.push('/logout');
               }else{
-                vm.$message.warning("账号已存在注册失败");
+                vm.$message.warning("账号已存在,注册失败");
               }
 
             });
@@ -107,24 +108,46 @@ export default {
 </script>
 
 <style scoped>
+@import url('../css/login.css');
+@import url('../iconfont/iconfont1/iconfont.css');
+@import url('../iconfont/fa/css/all.css');
   .reg-box{
     /*width: 60%;*/
     /*height: 90%;*/
-    border: 1px solid #42b983;
-    border-radius: 20px;
-    box-shadow: 2px 2px 20px;
-    margin-bottom: 30px;
-    margin-left: 330px;
-    margin-right: 330px;
-    margin-top: 40px;
-    padding: 20px 20px 20px 20px;
-    text-align: center;
+  width: 500px;
+  border: 1px solid  #E2E4EC;
+  margin: 150px auto; /*margin调剧中*/
+  border-radius: 5px;
+  box-shadow: 0px 0px 20px;
+  background-color: #fff;
+  padding-left: 24px;
+  padding-right: 24px; /*表单到边框的内间距上右下左*/
+  margin-top: 40px;
+  }
 
-  }
-  .button1{
-    color: green;
-  }
   .button2{
     margin-right: 30px;
   }
+input{
+    background-color: #F0F3F8 !important;
+    width: 100%;
+    border: 1px solid #DCDFE6;
+    border-radius: 4px;
+    -webkit-appearance: none;
+    height: 48px;
+    line-height: 40px;
+    outline: 0;
+    padding: 0 15px;
+    color: #495057;
+    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+    font-size: 18px;
+    font-weight: 500;
+   font-family: Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+}
+input:hover{
+  border: 1px solid #C0C4CC;
+}
+.clearfix1{
+  margin-left: 30px;
+}
 </style>

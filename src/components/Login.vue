@@ -8,7 +8,6 @@
     </div>
     <el-form class="form1" ref="form" :rules="rule" :model="form" label-width="80px">  
       <div class="input" prop="name">
-        
         <el-input class="textbox iconfont" v-model="form.name" placeholder="用户名"><i class="iconfont">&#xe60f;</i></el-input>
       </div>
       <div class="input">
@@ -113,18 +112,7 @@ export default {
   align-items: center;
 }
 
-.button1 {
-  background-color: #0665D0;
-  margin-left: 0px;
-  font-size: 16px;
-  width: 100%;
-  height: 45px;
-  margin-bottom: 25px;
-}
-.button1:hover{
-  background-color: #117EF8;
-  box-shadow: 3px 3px 0px 0px #E2E4EC;
-}
+
 
 
 
