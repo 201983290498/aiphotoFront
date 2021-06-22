@@ -32,6 +32,49 @@
 }
 
 .input{
-    margin-left: 0px !important;
+    margin-bottom: 24px;
+}
+ul li{
+    float: left;
+    font-size: 16px;
+    font-weight: 700 !important;
+    color: #6c757d;
+}
+.line,.line:hover{
+    margin: 0 10px;
+    color: #E8E8E8;
+}
+.register{
+    margin-left: 165px;
 }
 
+.el-button span{
+    font-size: 21px;
+    vertical-align: -2px;
+    margin-right: -4px;
+}
+.font1{
+    font-weight: 700 !important;
+}
+.clearfix1{
+    margin-bottom: 45px;
+}
+ul li:hover{
+    color: #3D4246;
+}
+
+.titlebtn{
+    float: right;
+    margin-top: -52px;
+    margin-right: 4px;
+    width: 57px;
+    height: 46px;
+    border: #fff;
+    border-radius: 4px;
+    background-color: #F8F9FC;
+    font-weight: 900 !important;
+    font-size: 18px;
+}
+.titlebtn:hover{
+background-color: #D7DEED;
+}

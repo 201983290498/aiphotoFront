@@ -3,24 +3,32 @@
   <div class="login-box">
     <div class="title-wrapper">
       <a href="javascript:;"><span class="title-name">AIPhoto</span></a>
+      <button class="titlebtn clearfix"><i class="far fa fa-language"></i></button>
       <p class="title-content">WELCOME TO OUR AIPHOTO SYSTEM</p>
     </div>
-     <!-- <h2 class="title">AIPhoto</h2> -->
     <el-form class="form1" ref="form" :rules="rule" :model="form" label-width="80px">  
       <div class="input" prop="name">
-        <i class="iconfont"></i>
-        <el-input id="in" v-model="form.name" placeholder="用户名"></el-input>
+        
+        <el-input class="textbox iconfont" v-model="form.name" placeholder="用户名"><i class="iconfont">&#xe60f;</i></el-input>
       </div>
       <div class="input">
-        <el-input type="password" v-model="form.password" placeholder="密码"></el-input>
+        <i class="iconfont"></i>
+        <el-input class="textbox" type="password" v-model="form.password" placeholder="密码"></el-input>
       </div>
-      <el-form-item label-width="0">
-        <el-button class="button1" type="primary" @click="onSubmit('form')"><b>登入</b></el-button>
-        <el-button class="button2" type="primary" @click="Register()"><b>注册</b></el-button>
-      </el-form-item>
+      <div class="loginbtn">
+        <el-button class="button1 font1" type="primary" @click="onSubmit('form')"><span class="iconfont">&#xe741;</span> 登入</el-button>
+      </div>
+      <div class="clearfix1 clearfix">
+      <ul >
+        <li @click="Register()"><span class="register"  >注册</span></li>
+        <li class="line">|</li>
+        <li><span >忘记密码</span></li>
+      </ul>
+      </div>
+
     </el-form>
   </div>
-</template>
+ </template>
 <script>
 export default {
   name: "Login",
@@ -86,6 +94,7 @@ export default {
 <style scoped>
 @import url('../css/login.css');
 @import url('../iconfont/iconfont1/iconfont.css');
+@import url('../iconfont/fa/css/all.css');
 
 
 .login-box {
@@ -105,20 +114,23 @@ export default {
 }
 
 .button1 {
-  color: green;
+  background-color: #0665D0;
   margin-left: 0px;
-  font-size: large;
-
+  font-size: 16px;
+  width: 100%;
+  height: 45px;
+  margin-bottom: 25px;
+}
+.button1:hover{
+  background-color: #117EF8;
+  box-shadow: 3px 3px 0px 0px #E2E4EC;
 }
 
-.button2 {
-  color: brown;
-  margin-right: 0px;
-  font-size: large;
-}
+
 
 .el-button--text {
   font-family: 微软雅黑;
 }
+
 
 </style>
