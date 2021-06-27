@@ -22,7 +22,7 @@ export default {
   text-align: center;
 }
 .is-background{
-  background: url("../static/icon/backgorud1.png") no-repeat;
+  background: url("../static/icon/background3.jpg") no-repeat;
   background-position: center;
   height: 100%;
   width: 100%;

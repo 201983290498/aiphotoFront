@@ -1,0 +1,10 @@
+        <el-header style="text-align: right; font-size: 12px">
+          <el-dropdown>
+            <i class="el-icon-setting" style="margin-right: 10px"></i>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item><span @click="addPic">添加照片</span></el-dropdown-item>
+              <el-dropdown-item><router-link to="/logout">退出</router-link></el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+          <span>你好,{{username}}</span>
+        </el-header>

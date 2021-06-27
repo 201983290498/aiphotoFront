@@ -1,13 +1,35 @@
 <template>
 
   <div class="dashboard">
-
-    <el-header style="text-align: center" class="framework">
-      <h1>智能云相册</h1>
+    <el-header class="header">
+      <div class="title-wrapper">
+        <div class="title">
+          AIPhoto
+        </div>
+        <div class="function-wrapper">
+          <ul class="function-list">
+            <li class="function"> </li>
+          </ul>
+          <div class="others clearlfix">
+            <button class="titlebtn"><i class="far fa fa-language"></i></button>
+            <button class="user  userbtn"><i class="far fa fa-user-circle icon1"></i>{{username}}
+            <el-dropdown>
+              <i class="fa fa-fw fa-angle-down icon2"></i>
+              <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item class="menuitem"><i class="icon3 far fa-fw fa-user"></i><span @click="addPic">添加照片</span></el-dropdown-item>
+              <el-dropdown-item class="menuitem"><i class="icon3 far fa-fw fa-arrow-alt-circle-left"></i><router-link to="/logout">退出</router-link></el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+            </button>
+ 
+          </div>
+          
+        </div>
+      </div>
+      <div class="function_wrapper"></div>
     </el-header>
-
     <el-container  class="framework" >
-      <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+      <el-aside class="side">
         <el-menu > <!--# 默认打开的菜单-->
           <el-submenu index="1">
             <template slot="title"><i class="el-icon-message"></i><span @click="toPublicSub">智能公共相册</span></template>
@@ -41,16 +63,6 @@
       </el-aside>
 
       <el-container>
-        <el-header style="text-align: right; font-size: 12px">
-          <el-dropdown>
-            <i class="el-icon-setting" style="margin-right: 10px"></i>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item><span @click="addPic">添加照片</span></el-dropdown-item>
-              <el-dropdown-item><router-link to="/logout">退出</router-link></el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-          <span>你好,{{username}}</span>
-        </el-header>
 
         <el-main class="body" id="main">
           <router-view></router-view>
@@ -59,6 +71,7 @@
 
     </el-container>
 <!--  {{$route.params.username}}-->
+  
 
   </div>
 </template>
@@ -118,34 +131,95 @@ export default {
 </script>
 
 <style>
-.el-header {
-  background-color: #B3C0D1;
-  color: #333;
-  line-height: 60px;
+@import url('../iconfont/iconfont1/iconfont.css');
+@import url('../iconfont/fa/css/all.css');
+.side{
+  width: 250px !important;
+}
+.title-wrapper{
+  height: 80px !important;
+  line-height: 80px !important;
+}
+.title{
+  width: 250px !important;
+  padding: 0 18px !important;
+  background-color:#1F75D5;
+  font-family: Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+  font-weight: 400;
+  font-size: 25px;
+  color: #C7DCF4;
+  padding-left: 8px;
+  float: left;
+}
+.header{
+  padding: 0px !important;
+  height: 80px !important;
+  line-height: 80px !important;
+  width:100%; 
+  background-color:#0665D0;
+}
+.title:hover{
+  text-decoration: underline;
+  color: #fff;
+}
+.others{
+  float: right;
+  padding-right: 28px;
 }
 
-.el-aside {
-  color: #333;
+.titlebtn{
+    margin-right: 4px;
+    padding: 0px 18px;
+    height: 46px;
+    margin-top: 18px;
+    border: #fff;
+    border-radius: 4px;
+    background-color: #0770E6;
+    font-weight: 900 !important;
+    font-size: 18px;
+    color:#fff;
 }
-.dashboard{
-  width: 100%;
-  height: 90%;
-  margin: auto;
+.userbtn{
+    margin-right: 4px;
+    height: 46px;
+    margin-top: 18px;
+    border: #fff;
+    border-radius: 4px;
+    background-color: #0770E6;
+    font-weight: 900 !important;
+    font-size: 18px;
+    color:#fff;
+    padding: 0 14px 0 18px;
 }
-.framework{
-  height: 100%;
-  width: 80%;
-  margin: auto;
-  border: 1px solid silver;
-  border-radius: 5px;
+.titlebtn:hover,.userbtn:hover{
+  background-color:#0557B2;
 }
-.body{
-  margin-left: 0px;
-  background-color: #eeeeee;
-  text-align: left;
+.icon1{
+  margin-right: 4px;
 }
-#main{
-  padding: 2px;
+.icon2{
+  padding: 0 4px;
+  display: inline-block;
 }
-
+.drawMenu{
+  widows: 100px;
+  height: 200px;
+  overflow: hidden;
+}
+.menuitem{
+  width: 176px;
+  padding: 6px 12px;
+  margin: 0px 12px;
+  font-size: 18px;
+  color:#495057;
+}
+.icon3:hover{
+  background-color: #F0F3F8;
+}
+icon3{
+  margin-right: 6px;
+}
+.side{
+  height: 100% !important;
+}
 </style>
