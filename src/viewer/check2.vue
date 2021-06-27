@@ -2,24 +2,22 @@
 
   <div class="login-box">
     <div class="title-wrapper">
-      <a href="javascript:;"><span class="title-name">AIPhoto</span></a>
-      <button class="titlebtn clearfix"><i class="far fa fa-language"></i></button>
-      <p class="title-content">WELCOME TO OUR AIPHOTO SYSTEM</p>
+      <a href="javascript:;"><span class="title-name">Private Photo</span></a>
     </div>
-    <el-form class="form1" ref="form" :rules="rule" :model="form" label-width="80px">  
+    <el-form class="form1" ref="form" :rules="rule" :model="form" >  
       <div class="input" prop="name">
-        <el-input class="textbox iconfont" v-model="form.name" placeholder="用户名"><i class="iconfont">&#xe60f;</i></el-input>
+        <el-input :value="form.username"  class="textbox iconfont"  placeholder="用户名" auto-complete="off"><i class="iconfont">&#xe60f;</i></el-input>
       </div>
       <div class="input">
         <i class="iconfont"></i>
         <el-input class="textbox" type="password" v-model="form.password" placeholder="密码"></el-input>
       </div>
       <div class="loginbtn">
-        <el-button class="button1 font1" type="primary" @click="onSubmit('form')"><span class="iconfont">&#xe741;</span> 登入</el-button>
+        <el-button class="button1 font1" type="primary" @click="onSubmit('form')"><span class="iconfont">&#xe741;</span>  认证</el-button>
       </div>
       <div class="clearfix1 clearfix">
       <ul >
-        <li @click="Register()"><span class="register"  >注册</span></li>
+        <li ><span class="register"  >注册</span></li>
         <li class="line">|</li>
         <li><span >忘记密码</span></li>
       </ul>
@@ -30,13 +28,16 @@
  </template>
 <script>
 export default {
-  name: "Login",
+  name: "check2",
   data() {
     return {
       form: {
         name: '',
-        password: ''
+        password: '',
+        username: this.$route.params.username
       },
+      privatecategy: this.$route.params.categy,
+      name: this.GLOBAL.username,
       rule: {//对元素内容进行验证
         name: [
           {required: true, message: '请输入用户名', trigger: 'blur'},
@@ -54,25 +55,22 @@ export default {
         if (valid) {
           vm.$message.info('输入成功，正在验证');
 
-          var _name = vm.form.name;
+          var _name = vm.form.username;
           var _password = vm.form.password;
-          console.log(_name + _password);
+          
           // axios异步申请
           this.axios({
             method: "post",
-            url: '/api/login',
+            url: '/api/login/Ex',
             data: {
               username: _name,
-              password: _password
+              pripassword: _password
             }
           }).then(function (reps) {
             if (reps.data) {
-              vm.$message.info("登入成功!欢迎" + _name);
-              vm.GLOBAL.username = _name;
-              vm.GLOBAL.password = _password;
-              vm.GLOBAL.pripassword = false;
-              vm.GLOBAL.pictureList = [];
-              vm.$router.push({name: "DashBoard", params: {username: _name}});
+              vm.$message.info("独立密码验证成功" );
+              vm.GLOBAL.pripassword = true;
+              vm.$router.push({name:"SubMain2", params:{username: vm.form.username, categy: vm.privatecategy}});
             } else {
               vm.$message.warning("账号或密码错误,请重新输入");
             }
@@ -84,12 +82,9 @@ export default {
         }
       });
     },
-    Register() {
-      console.log('正在跳转注册');
-      this.$router.push('/register');
-    }
   },
   created() {
+
   }
 }
 </script>
@@ -103,13 +98,14 @@ export default {
 .login-box {
   width: 500px;
   border: 1px solid  #E2E4EC;
-  margin: 150px auto; /*margin调剧中*/
+  margin: 100px auto; /*margin调剧中*/
   border-radius: 5px;
   box-shadow: 0px 0px 20px;
   background-color: #fff;
   padding-left: 24px;
   padding-right: 24px; /*表单到边框的内间距上右下左*/
-
+  color: black;
+  
 }
 
 .title {
@@ -119,10 +115,10 @@ export default {
 
 
 
-
 .el-button--text {
   font-family: 微软雅黑;
 }
+
 
 
 </style>

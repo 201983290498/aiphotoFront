@@ -67,6 +67,11 @@ export default new Router({
           path: '/pictureListWait',
           name: 'PictureListWait',
           component: ()=>import("../viewer/PictureListWait")
+        },
+        {
+          path: '/check2',
+          name: 'Check2',
+          component:()=>import("../viewer/check2")
         }
       ]
     }
