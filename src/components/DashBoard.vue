@@ -248,11 +248,13 @@ icon3{
 }
 #main{
  width: 100% !important;
- padding: 0 0 !important;
+
+ padding: 10px 20px;
 }
 .container{
   width:100%;
   margin-left: 0;
   padding-left: 0;
+  background-color: #F0F3F8;
 }
 </style>

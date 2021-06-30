@@ -72,30 +72,13 @@ export default new Router({
           path: '/check2',
           name: 'Check2',
           component:()=>import("../viewer/check2")
+        },
+        {
+          path: '/addcategy',
+          name: 'Addcategy',
+          component: () => import('../components/Addcategy')
         }
       ]
     }
-
-    // {
-    //   path: '/home',
-    //   name: 'Home',
-    //   component: () => import('../viewer/Home'),
-    //   children: [
-    //     {
-    //       path: '/productlist',
-    //       name: 'ProductList',
-    //       component: ProduceList
-    //     },
-    //     {
-    //       path:'/',
-    //       redirect: '/productlist'
-    //     },
-    //     {
-    //       path: '/productinfo',
-    //       name: 'ProductList',
-    //       component: ProduceInfo
-    //     }
-    //   ]
-    // }
   ]
 })
