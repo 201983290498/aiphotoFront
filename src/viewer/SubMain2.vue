@@ -15,7 +15,7 @@
         </span>
       </li>
     </ul>
-    <AddCategy  @closeDialog='closeDialog' v-if="showDialog" :username="username"></AddCategy>
+    <AddCategy  @closeDialog='closeDialog' v-if="showDialog" :username='username' ></AddCategy>
 
   </div>
 </template>

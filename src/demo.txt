@@ -1,14 +1,15 @@
 <template>
-    <div id="categydialog">
-        <div class="categyborder">
+    <div id="dialog">
+        <div class="border">
             <div @click="closeDialog" class="closeImg"></div>
-            <div class="form-wrapper">
-              <div class="categy-title">创建新相册{{username}}</div>
-              <ul class="categyform" :model="imgcategy">
-                <li class="categy-label">相册名称</li>
-                <li ><el-input placeholder="请输入分类名称" v-model="imgcategy.categy" class="categy-input"></el-input></li>
-                <li class="categy-label">相册描述</li>
-                <li ><el-input placeholder="相册的简单描述...(300字以内。)" v-model="imgcategy.categy" class="categy-input"></el-input></li>
+            <div class="form-wrapper" >
+              dsadsadsa
+              
+              <ul class="form">
+                <li class="label">类别名称</li>
+                <li class="input">dsad</li>
+                <li class="label">描述</li>
+                <li class="input">dasdasa</li>
               </ul>
           
             </div>
@@ -43,25 +44,25 @@ export default {
         this.imgcategy.username = this.username;
         var vm = this;
         //异步申请
-        this.axios({
-          method: 'post',
-          url: '/api/categy/create',
-          data: vm.imgcategy
-        }).then(function(resp){
-          if(resp.data){
-            vm.$message.success('添加成功');
-            closeDialog();
-          }else{
-            vm.$message.warning('创建失败，该分类已经存在!');
-          }
-        });
+        // this.axios({
+        //   method: 'post',
+        //   url: '/api/categy/create',
+        //   data: vm.imgcategy
+        // }).then(function(resp){
+        //   if(resp.data){
+        //     vm.$message.success('添加成功');
+        //     closeDialog();
+        //   }else{
+        //     vm.$message.warning('创建失败，该分类已经存在!');
+        //   }
+        // });
       }
     }
 }
 </script>
 
 <style>
-  #categydialog{
+  #dialog{
     /* 开启定位方式，固定定位，定位的起始点位于屏幕的左上角 */
     position: fixed;
     top: 0;
@@ -83,21 +84,31 @@ export default {
     background-size:cover;
     background-repeat: no-repeat;
   }
-  .categyborder{
-    /* text-align: center; */
+  .border{
+    text-align: center;
     background-color: #fff;
     border-radius: 20px;
-    width: 40%;
-    height: 40%;
+    width: 50%;
+    height: 50%;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
   }
   .form-wrapper{
-    margin-top: 20px;
-    padding: 0 20px;
-    color: black !important;
+    position: absolute;
+    height: 100%;
+  }
+  li{
+    position: absolute;
+    top: 0%;
+    left: 0px;
+    background: red;
+  }
+  .message{
+    text-align: center;
+    position: absolute;
+    top: 50%;
   }
   
 </style>
