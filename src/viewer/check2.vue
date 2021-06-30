@@ -68,7 +68,7 @@ export default {
             }
           }).then(function (reps) {
             if (reps.data) {
-              vm.$message.info("独立密码验证成功" );
+              vm.$message.success("独立密码验证成功" );
               vm.GLOBAL.pripassword = true;
               vm.$router.push({name:"SubMain2", params:{username: vm.form.username, categy: vm.privatecategy}});
             } else {

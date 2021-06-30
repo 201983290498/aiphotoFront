@@ -67,7 +67,7 @@ export default {
             }
           }).then(function (reps) {
             if (reps.data) {
-              vm.$message.info("登入成功!欢迎" + _name);
+              vm.$message.success("登入成功!欢迎" + _name);
               vm.GLOBAL.username = _name;
               vm.GLOBAL.password = _password;
               vm.GLOBAL.pripassword = false;
