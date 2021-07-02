@@ -6,6 +6,55 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "15276971",
+      "name": "添加",
+      "font_class": "add-fill",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "17123269",
+      "name": "添加",
+      "font_class": "add-fill1",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "17130876",
+      "name": "添加",
+      "font_class": "jia3",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "17795861",
+      "name": "添加",
+      "font_class": "add-fill-hover",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "18976280",
+      "name": "添加",
+      "font_class": "add-fill2",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    },
+    {
+      "icon_id": "20534234",
+      "name": "添加",
+      "font_class": "add-fill3",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "21852524",
+      "name": "添加",
+      "font_class": "add-fill-copy",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
       "icon_id": "4503749",
       "name": "文件夹",
       "font_class": "noun__cc",

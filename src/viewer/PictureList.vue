@@ -9,19 +9,22 @@
       <Button icon="ios-cloud-upload-outline" class="face btn success " id="face3" @click="comRecog(0)">取消</Button>
       <Button icon="ios-cloud-upload-outline" class="face btn success " id="face2" @click="comRecog(1)">确认聚合</Button>
     </div>
-    <ul class="myul" >
-      <li v-for="picurl in pictureList" class="div">
-          <div class="top" >
-            <div class="text" >
-              {{picurl.picname}}
+    <div>
+      <ul class="myul" >
+        <li v-for="picurl in pictureList" class="div">
+            <div class="top" >
+              <div class="text" >
+                {{picurl.picname}}
+              </div>
+              <img src="/static/icon/delete.png" class="del" :id="'pic'+picurl.id" @click="deletePic(picurl.id)">
             </div>
-            <img src="/static/icon/delete.png" class="del" :id="'pic'+picurl.id" @click="deletePic(picurl.id)">
-          </div>
-          <a :href="'http://localhost:8080/#/pictureshow/' + picurl.id +'/' + picurl.owner" target="_blank">
-          <img :src="picurl.b64" alt="图片i">
-          </a>
-      </li>
-    </ul>
+            <a :href="'http://localhost:8080/#/pictureshow/' + picurl.id +'/' + picurl.owner" target="_blank">
+            <img :src="picurl.b64" alt="图片i">
+            </a>
+        </li>
+      </ul>
+    </div>
+    <div class="add-icon-wrapper"><i class="iconfont add-icon">&#xe604;</i></div>
   </div>
 </template>
 
@@ -34,7 +37,9 @@ export default {
       categy: this.$route.params.categy,
       ispublic: this.$route.params.ispublic,
       deletelist:[],
-      pictureList: []
+      pictureList: [],
+      ids: [],
+      finished: false
     }
   },
   methods: {
@@ -44,12 +49,23 @@ export default {
       let ispublic = this.$route.params.ispublic;
       let vm = this;
       let add = "/api/b64pictures?username="+username+ "&categy=" + categy + "&ispublic=" + ispublic;
-      this.axios({
+      vm.axios({
         method: 'get',
         url: add
       }).then(function(resp){
-        vm.pictureList = resp.data;
-        console.log(resp.data)
+        vm.ids = resp.data;
+        add = "/api/b64picture?username="+username+ "&id=";
+        for(let i=0;i<vm.ids.length;i++){
+          let tem_add = add + vm.ids[i];
+          vm.axios({
+            method: 'get',
+            url: tem_add
+          }).then(function(rep){
+            vm.pictureList.push(rep.data);
+            if(i==vm.ids.length-1)
+              vm.finished = true;
+          });
+        }
       });
     },
 
@@ -175,7 +191,6 @@ export default {
       }
       this.deletelist = [];
     }
-
   },
   created(){
     this.getPic();
@@ -272,5 +287,20 @@ export default {
 }
 #face2,#face3{
   display: none;
+}
+
+.add-icon-wrapper{
+  position: absolute;
+  bottom: 40px;
+  right: 60px;
+}
+.add-icon{
+  font-size: 54px;
+  color: #00CC99;
+  cursor:pointer;
+}
+.add-icon:hover{
+  color: #02D8A3;
+  text-shadow: 2px 2px 2px 2px #ccc;
 }
 </style>

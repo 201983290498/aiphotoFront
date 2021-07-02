@@ -65,6 +65,7 @@ export default {
 .myul li:hover{
   background-color: #fff;
   box-shadow:  #E2E8F2 1px 0px 1px 1px;
+  cursor:pointer;
 }
 .myul li:hover #font{
   font-weight: 700 !important;
