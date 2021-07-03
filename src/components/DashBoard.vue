@@ -118,7 +118,8 @@ export default {
       url: address
     }).then(function (reps){
       vm.privatecategy = reps.data;
-
+      vm.GLOBAL.pricategy = reps.data;
+      console.log(vm.GLOBAL.pricategy);
     });
 
     this.axios({

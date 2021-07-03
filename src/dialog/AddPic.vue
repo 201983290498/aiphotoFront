@@ -7,7 +7,14 @@
                     <span>上传图片</span>
                      <el-button type="primary" class="btn-2" @click="fileClick">选择图片</el-button>
                 </div>
-                <ul class="categyform" :model="imgcategy">
+                <ul class="categyform" >
+                    <li class="categy-label">相册</li>
+                    <li class="categy-input">
+                      <el-select v-model="addcategy" placeholder="公共图册无需选择相册。">
+                        <el-option value="公共相册"></el-option>
+                        <el-option v-for="(value,key) in pricategy" :key="key" :value="value" :lable="value"></el-option>
+                      </el-select>
+                    </li>
                     <li class="categy-label">选中照片</li>
                     <li class="categy-input">
                       <div class="upload_warp" style="border: 1px solid #ffffff;">
@@ -30,7 +37,7 @@
                 </ul>
                 <input @change="fileChange($event)" type="file" id="upload_file" multiple style="display:none"/>
                 <div class="categy-btn">
-                <el-button class="button1" type="primary" @click="onSubmit"><span class="iconfont">&#xe7dd;</span> 提交</el-button>
+                <el-button class="button1" type="primary" @click="submitImg"><span class="iconfont">&#xe7dd;</span> 提交</el-button>
                 </div>     
             </div>
         </div>
@@ -45,13 +52,21 @@ export default {
     return {
       imgList: [],
       sendImgList: [],
-      size: 0
+      size: 0,
+      addcategy: '',
+      pricategy: this.GLOBAL.pricategy
     }
   },
   props:{
-    ispublic: Boolean,
-    categy: String,
-    username: String,
+    ispublic:{
+      type: Boolean
+    },
+    categy: {
+      type: String
+    },
+    username: {
+      type: String
+    }
   },
   methods: {
     pictureStruct(pic,mark){
@@ -87,8 +102,9 @@ export default {
         .then((res)=> {
           vm.$message.success("成功上传"+res.data+"张图片");
           this.$router.push({name:"PictureListWait",params:{username: this.username,categy:this.categy,ispublic:this.ispublic}});
-        }).catch((error) =>{})
+        }).catch((error) =>{})  
       this.$router.push({name:"PictureListWait",params:{username: this.username,categy:this.categy,ispublic:this.ispublic}});
+      this.closeDialog();
     },
 
     //上传
@@ -136,11 +152,17 @@ export default {
       return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
     },
     closeDialog(){
-        this.imgList=[];
-        this.sendImgList = [];
-        this.size = 0;
-        this.$emit('closeDialog', false);
+      this.imgList=[];
+      this.sendImgList = [];
+      this.size = 0;
+      this.$emit('closeDialog', false);
     }
+  },
+  created(){
+    if(this.ispublic)
+      this.addcategy = '公共相册';
+    else
+      this.addcategy = this.categy;
   }
 }
 </script>
@@ -159,7 +181,7 @@ export default {
     background-color: #F0F3F8;
     border-radius: 20px;
     position: absolute;
-    width: 55%;
+    width: 49%;
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
@@ -258,5 +280,62 @@ export default {
     font-weight: 700!important;
     color: #6C757C;
     margin-top: 2px;
+}
+
+.categyform .upload_warp{
+  margin: 0 20px 0 0;
+  width: 100%;
+  /* min-height: 100px; */
+  max-height: 210px;
+  overflow-y: auto;
+  background-color: #fff;
+
+}
+.categyform .upload_warp_img_div_top {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 25px;
+  background-color: rgba(0, 0, 0, 0.4);
+  line-height: 25px;
+  text-align: left;
+  color: #fff;
+  font-size: 12px;
+  text-indent: 4px;
+}
+
+.categyform .upload_warp_img_div_text {
+  white-space: nowrap;
+  width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.categyform .upload_warp_img_div_del {
+  position: absolute;
+  top: 6px;
+  width: 16px;
+  right: 4px;
+}
+.categyform .upload_warp_img_div img {
+  max-width: 100%;
+  max-height: 100%;
+  vertical-align: middle;
+}
+.categyform .upload_warp_img_div {
+  position: relative;
+  height: 98px;
+  width: 120px;
+  border: 1px solid #ccc;
+  margin: 0px 5px 2px 0px;
+  float: left;
+  line-height: 100px;
+  display: table-cell;
+  text-align: center;
+  background-color: #eee;
+  cursor: pointer;
+}
+.categyform .upload_warp_img {
+  border-top: 1px solid #D2D2D2;
+  overflow: hidden
 }
 </style>

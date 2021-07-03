@@ -22,10 +22,10 @@
             <img :src="picurl.b64" alt="图片i">
             </span>
         </li>
-        <li v-if="(!finished)&&(!openAdd)" ><LoadWait class="wait"></LoadWait></li>
+        <li v-if="(!finished)" ><LoadWait class="wait"></LoadWait></li>
       </ul>
     </div>
-    <div class="add-icon-wrapper" @click="addPic"><i class="iconfont add-icon">&#xe604;</i></div>  
+    <div class="add-icon-wrapper" @click="addPic" v-if="!show_Pic"><i class="iconfont add-icon">&#xe604;</i></div>  
     <OnePictureShow v-if="show_Pic" :picture="picExample" @closeDialog="closeDialog" @downLoad="downLoadPic"></OnePictureShow>
     <AddPic v-if="openAdd" :username="username" :categy="categy" :ispublic="ispublic" @closeDialog="closeAddDialog"></AddPic>
   </div>
@@ -265,6 +265,7 @@ export default {
   },
   created(){
     this.getPic();
+    
   }
 }
 </script>
