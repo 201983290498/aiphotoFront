@@ -22,7 +22,7 @@
             <img :src="picurl.b64" alt="图片i">
             </a>
         </li>
-        <li v-if="finished" ><LoadWait class="wait"></LoadWait></li>
+        <li v-if="!finished" ><LoadWait class="wait"></LoadWait></li>
       </ul>
     </div>
     <div class="add-icon-wrapper"><i class="iconfont add-icon">&#xe604;</i></div>
@@ -45,7 +45,7 @@ export default {
       deletelist:[],
       pictureList: [],
       ids: [],
-      finished: true
+      finished: false
     }
   },
   methods: {
@@ -61,7 +61,8 @@ export default {
       }).then(function(resp){
         vm.ids = resp.data;
         add = "/api/b64picture?username="+username+ "&id=";
-        
+        if(resp.data.length==0)
+          vm.finished = true;
         //重新定义
         if(vm.GLOBAL.pictureList.length==0){
           vm.GLOBAL.pictureList = new Map();
@@ -70,7 +71,7 @@ export default {
           let id = vm.ids[i];
           vm.getPicById(add,id);
           if(i==vm.ids.length-1)
-            vm.finished = false;
+            vm.finished = true;
         }
       });
     },
@@ -109,6 +110,7 @@ export default {
     },
 
     deleteStatus: function (){
+      //显示操作栏
       this.showFloatText("inline");
       this.changeBtn("none","inline")
       this.deletelist = [];
@@ -133,11 +135,13 @@ export default {
 
     deletePic: function (picId) {
       console.log(this.deletelist);
+      //在列表中查找元素
       let index = this.deletelist.indexOf(picId);
       if ( index < 0) {
         this.deletelist.push(picId);
         this.changeIcon(picId);
       }else{
+        //已经存在了，继续点就是删除某个元素
         this.deletelist.splice(index,index+1);
         this.changeIcon(picId);
       }
@@ -218,6 +222,23 @@ export default {
         }
       }
       this.deletelist = [];
+    },
+    downLoadPics: function(){
+      let vm = this;
+      let pics = this.GLOBAL.pictureList;
+      for(let i=0;i<this.deletelist.length;i++){
+        vm.downLoadPic(pics.get(vm.deletelist[i]));
+      }
+      //回复到默认状态
+      this.quitDelete();
+    },
+    // 下载单张图片
+    downLoadPic: function(picture){
+      let a = document.createElement('a');
+      let event = new MouseEvent('click');
+      a.download = picture.picname;
+      a.href = picture.b64;
+      a.dispatchEvent(event);
     }
   },
   created(){

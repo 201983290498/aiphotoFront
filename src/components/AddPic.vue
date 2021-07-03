@@ -21,7 +21,7 @@
             </div>
           </div>
         </div>
-        <input @change="fileChange($event)" type="file" id="upload_file" multiple style="display: none"/>
+        <input @change="fileChange($event)" type="file" id="upload_file" multiple style="display:none"/>
       </div>
     </div>
     <div>
@@ -86,10 +86,12 @@ export default {
 
     //上传
     fileClick(){
-      document.getElementById('upload_file').click()
+      document.getElementById('upload_file').click();
     },
 
     fileChange(el){
+      console.log(el);
+      console.log(el.target.files[0]);
       if (!el.target.files[0].size) return;
       this.fileList(el.target.files);
       el.target.value = ''
