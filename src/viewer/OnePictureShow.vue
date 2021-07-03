@@ -1,8 +1,11 @@
 <template>
-  <div id="main">
-    <span class="upload_warp_img_div">
-      <img :src="src" >
+  <div>
+  <div id="main" @click="closeDialog">
+    <span class="upload_warp_img_div1">
+      <img :src="picture.b64" >
     </span>
+  </div>
+  <div class="download-icon-wrapper" @click="downLoad"><i class="iconfont download-icon">&#xe662;</i></div>    
   </div>
 </template>
 
@@ -11,39 +14,61 @@ export default {
   name: "OnePictureShow",
   data() {
     return{
-      username: null,
-      pictureId: null,
-      src: null
+      downfile: false
     }
   },
-  created() {
-    this.pictureId = this.$route.params.id;
-    this.username = this.$route.params.username;
-    let vm = this;
-    let address = '/api/b64picture?username='+this.username +'&id=' + this.pictureId;
-    this.axios({
-      method: "get",
-      url: address
-    }).then(function (rep){
-      console.log(rep.data);
-      vm.src = rep.data.b64;
-    });
+  props: {
+    picture: {
+      type: Object
+    }
+  },
+  methods: {
+    closeDialog(){
+      if(!this.downfile)
+        this.$emit('closeDialog', false);
+    },
+    downLoad(){
+      let vm = this;
+      vm.downfile = true;
+      this.$emit("downLoad", vm.picture);
+      vm.downfile = false;
+    }
   }
 }
 </script>
 
 <style scoped>
 #main{
-  width: 80%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
-  margin: 0px auto;
-  background-color: #999999;
-  vertical-align: center;
-  line-height:700px;
+  background: rgba(0,0,0,0.3);
 }
-#main img {
-  max-height: 100%;
-  max-width: 100%;
-  margin: 0px auto;
+.upload_warp_img_div1>img{  
+  max-height:60%;
+  max-width: 60%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  background:#F0F3F8;
+}
+
+.download-icon-wrapper{
+  z-index: 1;
+  position: absolute;
+  bottom: 40px;
+  right: 60px;
+}
+.download-icon{
+  font-size: 54px;
+  color: #6CCBFF;
+  cursor:pointer;
+}
+.download-icon:hover{
+  color:#0260FF;
+  text-shadow: 2px 2px 2px 2px #ccc;
 }
 </style>

@@ -49,7 +49,7 @@ export default {
     }
   },
   created(){
-
+    this.GLOBAL.ispublic = this.GLOBAL.pripassword;
   }
 }
 

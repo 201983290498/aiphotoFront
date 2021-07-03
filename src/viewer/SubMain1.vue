@@ -26,7 +26,7 @@ export default {
     }
   },
   created(){
-
+    this.GLOBAL.ispublic = false;
   }
 
 }

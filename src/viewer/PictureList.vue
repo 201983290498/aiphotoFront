@@ -18,24 +18,29 @@
               </div>
               <img src="/static/icon/delete.png" class="del" :id="'pic'+picurl.id" @click="deletePic(picurl.id)">
             </div>
-            <a :href="'http://localhost:8080/#/pictureshow/' + picurl.id +'/' + picurl.owner" target="_blank">
+            <span @click="createDialog(picurl)">
             <img :src="picurl.b64" alt="图片i">
-            </a>
+            </span>
         </li>
-        <li v-if="!finished" ><LoadWait class="wait"></LoadWait></li>
+        <li v-if="(!finished)&&(!openAdd)" ><LoadWait class="wait"></LoadWait></li>
       </ul>
     </div>
-    <div class="add-icon-wrapper"><i class="iconfont add-icon">&#xe604;</i></div>
-
+    <div class="add-icon-wrapper" @click="addPic"><i class="iconfont add-icon">&#xe604;</i></div>  
+    <OnePictureShow v-if="show_Pic" :picture="picExample" @closeDialog="closeDialog" @downLoad="downLoadPic"></OnePictureShow>
+    <AddPic v-if="openAdd" :username="username" :categy="categy" :ispublic="ispublic" @closeDialog="closeAddDialog"></AddPic>
   </div>
 </template>
 
 <script>
 import LoadWait from '../dialog/LoadWait.vue'
+import OnePictureShow from './OnePictureShow'
+import AddPic from '../dialog/AddPic'
 export default {
   name: "PictureList",
   components: {
-    LoadWait
+    LoadWait,
+    OnePictureShow,
+    AddPic
   },
   data() {
     return {
@@ -45,7 +50,10 @@ export default {
       deletelist:[],
       pictureList: [],
       ids: [],
-      finished: false
+      finished: false,
+      show_Pic: false,
+      picExample: null,
+      openAdd: false
     }
   },
   methods: {
@@ -170,7 +178,7 @@ export default {
     addPic: function (){
       var vm = this;
       this.$router.push({name:"AddPic", params:{username: vm.username,categy: vm.categy,ispublic: vm.ispublic}});
-      console.log("添加图片")
+      console.log("添加图片");
     },
 
     faceRecog: function (){
@@ -239,6 +247,20 @@ export default {
       a.download = picture.picname;
       a.href = picture.b64;
       a.dispatchEvent(event);
+    },
+    createDialog: function(pic){
+      let vm = this;
+      vm.show_Pic = true;
+      vm.picExample = pic;
+    },
+    closeDialog: function(flag){
+      this.show_Pic = flag;
+    },
+    addPic(){
+      this.openAdd = true;
+    },
+    closeAddDialog(flag){
+      this.openAdd = false;
     }
   },
   created(){
@@ -274,7 +296,6 @@ export default {
   height: 177px;
   float: left;
   padding: 0px 2px 3px 0px;
-  display: inline-block;
   border: 2px solid #ccc;
   background-color: #eee;
   position: relative;
@@ -337,7 +358,6 @@ export default {
 #face2,#face3{
   display: none;
 }
-
 .add-icon-wrapper{
   position: absolute;
   bottom: 40px;

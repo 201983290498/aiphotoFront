@@ -67,11 +67,13 @@
 
     </el-container>
 <!-- 添加用户的对话框 -->
+
   </div>
 </template>
 
 
 <script>
+
 export default {
   name: 'DashBoard',
   data(){
@@ -96,7 +98,7 @@ export default {
     },
     addPic: function (){
       var vm = this;
-      this.$router.push({name:"AddPic", params:{username: vm.username,categy: null, ispublic: true}});
+      this.$router.push({name:"AddPic", params:{username: vm.username,categy: null, ispublic: false}});
       console.log("添加图片")
     },
     tocheck2:function(){
@@ -105,7 +107,7 @@ export default {
         this.$router.push({name: "Check2", params:{username: vm.username,categy: vm.privatecategy}});
       else
         this.toPrivateSub();
-    }
+    },
   },
   created() {
 
