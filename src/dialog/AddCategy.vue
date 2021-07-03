@@ -50,7 +50,7 @@ export default {
         }).then(function(resp){
           if(resp.data){
             vm.$message.success('添加成功');
-            closeDialog();
+            vm.closeDialog();
           }else{
             vm.$message.warning('创建失败，该分类已经存在!');
           }

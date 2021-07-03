@@ -22,15 +22,21 @@
             <img :src="picurl.b64" alt="图片i">
             </a>
         </li>
+        <li v-if="finished" ><LoadWait class="wait"></LoadWait></li>
       </ul>
     </div>
     <div class="add-icon-wrapper"><i class="iconfont add-icon">&#xe604;</i></div>
+
   </div>
 </template>
 
 <script>
+import LoadWait from '../dialog/LoadWait.vue'
 export default {
   name: "PictureList",
+  components: {
+    LoadWait
+  },
   data() {
     return {
       username: this.$route.params.username,
@@ -39,7 +45,7 @@ export default {
       deletelist:[],
       pictureList: [],
       ids: [],
-      finished: false
+      finished: true
     }
   },
   methods: {
@@ -55,20 +61,37 @@ export default {
       }).then(function(resp){
         vm.ids = resp.data;
         add = "/api/b64picture?username="+username+ "&id=";
+        
+        //重新定义
+        if(vm.GLOBAL.pictureList.length==0){
+          vm.GLOBAL.pictureList = new Map();
+        }
         for(let i=0;i<vm.ids.length;i++){
-          let tem_add = add + vm.ids[i];
-          vm.axios({
-            method: 'get',
-            url: tem_add
-          }).then(function(rep){
-            vm.pictureList.push(rep.data);
-            if(i==vm.ids.length-1)
-              vm.finished = true;
-          });
+          let id = vm.ids[i];
+          vm.getPicById(add,id);
+          if(i==vm.ids.length-1)
+            vm.finished = false;
         }
       });
     },
 
+    getPicById: function(add,id){
+      let vm = this;
+      if(vm.GLOBAL.pictureList.has(id)){
+        vm.pictureList.push(vm.GLOBAL.pictureList.get(id));
+        return;
+      }
+      //不存在，从服务器请求
+      let tem_add = add + id;
+      vm.axios({
+        method: 'get',
+        url: tem_add
+      }).then(function(rep){
+        vm.pictureList.push(rep.data);
+        //添加到全局变量中
+        vm.GLOBAL.pictureList.set(id,rep.data);
+      });
+    },
     changeBtn: function (sty1,sty2){
       var btns = document.getElementsByClassName("btn1");
       for (let i = 0;i<btns.length;i++) {
@@ -182,8 +205,13 @@ export default {
             if(reps.data.length == 0)
               vm.$message.warning("聚合失败");
             else {
-              vm.pictureList = reps.data;
-              console.log(reps.data)
+              vm.ids = reps.data;
+              vm.pictureList = [];
+              let add = "/api/b64picture?username="+username+ "&id=";
+              for(let i=0;i<vm.ids.length;i++){
+                let id = vm.ids[i];
+                vm.getPicById(add,id)
+              }
               vm.$message.success("聚合成功");
             }
           });
@@ -302,5 +330,8 @@ export default {
 .add-icon:hover{
   color: #02D8A3;
   text-shadow: 2px 2px 2px 2px #ccc;
+}
+.wait{
+  padding: 20px 0px;
 }
 </style>

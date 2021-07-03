@@ -66,10 +66,7 @@
       </el-container>
 
     </el-container>
-<!--  {{$route.params.username}}-->
-  
 <!-- 添加用户的对话框 -->
-
   </div>
 </template>
 
