@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import PictureList from "../viewer/PictureList";
+
 
 export default {
   name: "Addpic",
@@ -47,7 +47,7 @@ export default {
   },
 
   methods: {
-    pictureStruct(pic){
+    pictureStruct(pic,mark){
       return{
         owner: this.username,
         categy: this.categy,
@@ -56,6 +56,7 @@ export default {
         picname: pic.name,
         persontag: null,
         ishuman: null,
+        remark: mark,
       }
     },
 
@@ -66,7 +67,7 @@ export default {
       let data1 = "[";
       for(var key in files){
         let pic = files[key].file;
-        let struct = this.pictureStruct(pic);
+        let struct = this.pictureStruct(pic,null);
         data1  = data1 + JSON.stringify(struct) + ",";
       }
       data1 = data1.substr(0,data1.length-1) + "]";
