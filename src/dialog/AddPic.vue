@@ -5,16 +5,32 @@
             <div class="add-wrapper">
                 <div class="add-title">
                     <span>上传图片</span>
-                     <el-button type="primary" class="btn-2"><span class="iconfont">&#xe7dd;</span> 创建</el-button>
+                     <el-button type="primary" class="btn-2" @click="fileClick">选择图片</el-button>
                 </div>
                 <ul class="categyform" :model="imgcategy">
-                    <li class="categy-label">相册名称</li>
-                    <li ><el-input placeholder="请输入分类名称"  class="categy-input"></el-input></li>
-                    <li class="categy-label">相册描述</li>
-                    <li ><el-input type="textarea" placeholder="相册的简单描述...(300字以内。)"  class="categy-input" :autosize="{minRows: 6,maxRows:6}"></el-input></li>
+                    <li class="categy-label">选中照片</li>
+                    <li class="categy-input">
+                      <div class="upload_warp" style="border: 1px solid #ffffff;">
+                        <div class="upload_warp_img" v-show="imgList.length!=0" >
+                          <div class="upload_warp_img_div" v-for="(item,index) in imgList">
+                            <div class="upload_warp_img_div_top" >
+                              <div class="upload_warp_img_div_text" >
+                                {{item.file.name}}
+                              </div>
+                              <img src="/static/icon/delete.png" class="upload_warp_img_div_del" @click="fileDel(index)">
+                            </div>
+                            <img :src="item.file.src">
+                          </div>
+                        </div>
+                      </div>                      
+                      <span class="add-content">选中{{imgList.length}}张文件，共{{bytesToSize(this.size)}}</span>  
+                    </li>
+                    <li class="categy-label">评论</li>
+                    <li  class="categy-input"><el-input type="textarea" placeholder="说点什么吧。"  :autosize="{minRows: 4,maxRows:4}"></el-input></li>
                 </ul>
+                <input @change="fileChange($event)" type="file" id="upload_file" multiple style="display:none"/>
                 <div class="categy-btn">
-                <el-button class="button1" type="primary" @click="onSubmit"><span class="iconfont">&#xe7dd;</span> 创建</el-button>
+                <el-button class="button1" type="primary" @click="onSubmit"><span class="iconfont">&#xe7dd;</span> 提交</el-button>
                 </div>     
             </div>
         </div>
@@ -22,6 +38,7 @@
 </template>
 
 <script>
+
 export default {
   name: "Addpic",
   data () {
@@ -129,6 +146,7 @@ export default {
 </script>
 
 <style>
+@import url('../css/loadpic.css');
 .add-pic-dialog{
     position: fixed;
     top: 0;
@@ -202,7 +220,8 @@ export default {
     padding: 0 20px;
   }
   .categy-btn .button1 {
-    background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+    background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
+    /* background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%); */
     margin-left: 0px;
     font-size: 17px;
     width: 100%;
@@ -221,8 +240,23 @@ export default {
     vertical-align: -1px;
   }
 .btn-2{
-    width: 70px;
-    height: 22px;
-    padding: 0;
+  float:right;
+  background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  margin-right: 20px;
+  margin-top: 2px;
+  color: #fff;
+}
+
+.add-title button{
+  height: 33px;
+  padding: 6px 12px;
+}
+.add-content{
+    width: 100%;
+    font-size: 0.875rem;
+    text-align: left;
+    font-weight: 700!important;
+    color: #6C757C;
+    margin-top: 2px;
 }
 </style>
