@@ -91,7 +91,7 @@ export default {
       let data1 = "[";
       for(var key in files){
         let pic = files[key].file;
-        let struct = this.pictureStruct(pic,null);
+        let struct = this.pictureStruct(pic,vm.remark);
         data1  = data1 + JSON.stringify(struct) + ",";
       }
       data1 = data1.substr(0,data1.length-1) + "]";

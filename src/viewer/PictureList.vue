@@ -1,16 +1,15 @@
 <template>
   <div>
-    <div class="upload_warp_left div-height" >
-      <Button icon="ios-cloud-upload-outline" class="btn success btn1"  @click="addPic">添加图片</Button>
+    <div class=" div-height" >
       <Button icon="ios-cloud-upload-outline" class="btn success text1 btn1" @click="deleteStatus">删除图片</Button>
-      <Button icon="ios-cloud-upload-outline" class="btn success btn2"  @click="quitDelete">取消删除</Button>
+      <Button icon="ios-cloud-upload-outline" class="btn success btn2 text2"  @click="quitDelete">取消删除</Button>
       <Button icon="ios-cloud-upload-outline" class="btn success text1 btn2" @click="comDelete">确认删除</Button>
       <Button icon="ios-cloud-upload-outline" class="face btn success" id="face1" @click="faceRecog">人脸聚合</Button>
-      <Button icon="ios-cloud-upload-outline" class="face btn success " id="face3" @click="comRecog(0)">取消</Button>
-      <Button icon="ios-cloud-upload-outline" class="face btn success " id="face2" @click="comRecog(1)">确认聚合</Button>
+      <Button icon="ios-cloud-upload-outline" class="face btn success" id="face3" @click="comRecog(0)">取&nbsp;&nbsp;消</Button>
+      <Button icon="ios-cloud-upload-outline" class="face btn success" id="face2" @click="comRecog(1)">确认聚合</Button>
     </div>
     <div>
-      <ul class="myul" >
+      <ul class="myul1" >
         <li v-for="picurl in pictureList" class="div">
             <div class="top" >
               <div class="text" >
@@ -25,7 +24,7 @@
         <li v-if="(!finished)" ><LoadWait class="wait"></LoadWait></li>
       </ul>
     </div>
-    <div class="add-icon-wrapper" @click="addPic" v-if="!show_Pic"><i class="iconfont add-icon">&#xe604;</i></div>  
+    <div class="add-icon-wrapper" @click="addPic" v-if="!show_Pic"><i class="iconfont add-icon">&#xe604;</i></div>
     <OnePictureShow v-if="show_Pic" :picture="picExample" @closeDialog="closeDialog" @downLoad="downLoadPic"></OnePictureShow>
     <AddPic v-if="openAdd" :username="username" :categy="categy" :ispublic="ispublic" @closeDialog="closeAddDialog"></AddPic>
   </div>
@@ -174,13 +173,7 @@ export default {
       });
       this.$router.push({name:"PictureListWait",params:{username: this.username,categy:this.categy,ispublic:this.ispublic}});
       this.deletelist = [];
-  },
-    addPic: function (){
-      var vm = this;
-      this.$router.push({name:"AddPic", params:{username: vm.username,categy: vm.categy,ispublic: vm.ispublic}});
-      console.log("添加图片");
     },
-
     faceRecog: function (){
       this.$message.info("请选择一张图片");
       if(!(this.categy=="人物")&&this.ispublic){
@@ -265,7 +258,7 @@ export default {
   },
   created(){
     this.getPic();
-    
+
   }
 }
 </script>
@@ -275,24 +268,22 @@ export default {
 .div-height {
   width:100%;
   height:35px;
-  background-color: #eeeeee;
-}
-.upload_warp_left {
-  float: left;
+  background-color: #F0F3F8;
 }
 .success{
   background: rgb(45, 140, 240);
   color:#fff;
-  padding: 0px 8px ;
-  font-size: 20px;
+  padding: 5px 10px ;
+  font-size: 18px;
+  height: 35px;
 }
-.myul{
+.myul1{
   list-style-type: none;
   background-color: aqua;
   padding: 0px;
 
 }
-.myul li{
+.myul1 li{
   width: 200px;
   height: 177px;
   float: left;
@@ -301,7 +292,7 @@ export default {
   background-color: #eee;
   position: relative;
 }
-.myul img{
+.myul1 img{
   max-width: 100%;
   max-height: 100%;
   /*margin-left: 20px;*/
@@ -313,7 +304,6 @@ export default {
   /*background-color: #eee;*/
   cursor: pointer;
   vertical-align: center;
-
 }
 
 .top {
@@ -329,32 +319,39 @@ export default {
   font-size: 12px;
   text-indent: 4px;
 }
-.text {
+.text{
   white-space: nowrap;
   width: 80%;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.del {
+.del{
   position: absolute;
   top: 6px;
   width: 16px;
   right: 4px;
 }
 .text1{
-  margin-left: 40px;
-  background-color: orange;
+  margin-left: 30px;
+  background-image: linear-gradient(-20deg, #f794a4 0%, #fdd6bd 100%);
 }
 .btn1{
   display: inline;
+  margin-left: 0;
+  float: left;
 }
 .btn2{
   display: none;
+  float: left;
+}
+.text2{
+  background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 .face{
   display: inline;
   float: right;
   margin-right: 40px;
+  background-image: radial-gradient(circle 248px at center, #16d9e3 0%, #30c7ec 47%, #46aef7 100%);
 }
 #face2,#face3{
   display: none;
@@ -373,7 +370,17 @@ export default {
   color: #02D8A3;
   text-shadow: 2px 2px 2px 2px #ccc;
 }
-.wait{
+.wait {
   padding: 20px 0px;
+}
+.btn{
+  color: #C7DCF4;
+  font-weight: 700;
+}
+.btn:hover{
+  color: #fff;
+}
+#face3{
+  background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 </style>
