@@ -4,25 +4,75 @@
       <Button icon="ios-cloud-upload-outline" class="btn success text1 btn1" @click="deleteStatus">删除图片</Button>
       <Button icon="ios-cloud-upload-outline" class="btn success btn2 text2"  @click="quitDelete">取消删除</Button>
       <Button icon="ios-cloud-upload-outline" class="btn success text1 btn2" @click="comDelete">确认删除</Button>
-      <Button icon="ios-cloud-upload-outline" class="face btn success" id="face1" @click="faceRecog">人脸聚合</Button>
+      <Button icon="ios-cloud-upload-outline" class="face btn success" id="face1" @click="faceRecog" v-if="!ispublic||(categy=='人物')">人脸聚合</Button>
       <Button icon="ios-cloud-upload-outline" class="face btn success" id="face3" @click="comRecog(0)">取&nbsp;&nbsp;消</Button>
-      <Button icon="ios-cloud-upload-outline" class="face btn success" id="face2" @click="comRecog(1)">确认聚合</Button>
+      <Button icon="ios-cloud-upload-outline" class="face btn success" id="face2" @click="comRecog(1)" >确认聚合</Button>
     </div>
-    <div>
-      <ul class="myul1" >
-        <li v-for="picurl in pictureList" class="div">
-            <div class="top" >
-              <div class="text" >
-                {{picurl.picname}}
-              </div>
-              <img src="/static/icon/delete.png" class="del" :id="'pic'+picurl.id" @click="deletePic(picurl.id)">
-            </div>
-            <span @click="createDialog(picurl)">
-            <img :src="picurl.b64" alt="图片i">
-            </span>
-        </li>
-        <li v-if="(!finished)" ><LoadWait class="wait"></LoadWait></li>
-      </ul>
+    <div class="piclists clearfix">
+      <div class="piclist list1 clearfix">
+        <ul class="myul1" >
+          <div v-for="(picurl,index) in pictureList" :key="index">
+            <li v-if="index%4==0" class="div">
+                <div class="top">
+                  <div class="text" >
+                    {{picurl.picname}}
+                  </div>
+                  <img src="/static/icon/delete.png" class="del" :id="'pic'+picurl.id" @click="deletePic(picurl.id)">
+                </div>
+                <Pic :picture="picurl" :createDialog="createDialog"></Pic>
+            </li>
+          </div>
+          <!-- <li v-if="(!finished)" ><LoadWait class="wait"></LoadWait></li> -->
+        </ul>
+      </div>
+      <div class="piclist list2 clearfix">
+        <ul class="myul1" >
+          <div v-for="(picurl,index) in pictureList" :key="index">
+            <li v-if="index%4==1" class="div">
+                <div class="top">
+                  <div class="text" >
+                    {{picurl.picname}}
+                  </div>
+                  <img src="/static/icon/delete.png" class="del" :id="'pic'+picurl.id" @click="deletePic(picurl.id)">
+                </div>
+                <Pic :picture="picurl" :createDialog="createDialog"></Pic>
+            </li>
+          </div>
+          <!-- <li v-if="(!finished)&&(index%4==1)" ><LoadWait class="wait"></LoadWait></li> -->
+        </ul>
+      </div>
+      <div class="piclist list3 clearfix">
+        <ul class="myul1" >
+          <div v-for="(picurl,index) in pictureList" :key="index">
+            <li v-if="index%4==2" class="div">
+                <div class="top">
+                  <div class="text" >
+                    {{picurl.picname}}
+                  </div>
+                  <img src="/static/icon/delete.png" class="del" :id="'pic'+picurl.id" @click="deletePic(picurl.id)">
+                </div>
+                <Pic :picture="picurl" :createDialog="createDialog"></Pic>
+            </li>
+          </div>
+          <!-- <li v-if="(!finished)&&(index%4==2)" ><LoadWait class="wait"></LoadWait></li> -->
+        </ul>
+      </div>
+      <div class="piclist list4 clearfix">
+        <ul class="myul1" >
+          <div v-for="(picurl,index) in pictureList" :key="index">
+            <li v-if="index%4==3" class="div">
+                <div class="top">
+                  <div class="text" >
+                    {{picurl.picname}}
+                  </div>
+                  <img src="/static/icon/delete.png" class="del" :id="'pic'+picurl.id" @click="deletePic(picurl.id)">
+                </div>
+                <Pic :picture="picurl" :createDialog="createDialog"></Pic>
+            </li>
+          </div>
+
+        </ul>
+      </div>
     </div>
     <div class="add-icon-wrapper" @click="addPic" v-if="!show_Pic"><i class="iconfont add-icon">&#xe604;</i></div>
     <OnePictureShow v-if="show_Pic" :picture="picExample" @closeDialog="closeDialog" @downLoad="downLoadPic"></OnePictureShow>
@@ -34,12 +84,14 @@
 import LoadWait from '../dialog/LoadWait.vue'
 import OnePictureShow from './OnePictureShow'
 import AddPic from '../dialog/AddPic'
+import Pic from '../dialog/Pic'
 export default {
   name: "PictureList",
   components: {
     LoadWait,
     OnePictureShow,
-    AddPic
+    AddPic,
+    Pic
   },
   data() {
     return {
@@ -264,7 +316,6 @@ export default {
 </script>
 
 <style scoped>
-
 .div-height {
   width:100%;
   height:35px;
@@ -284,31 +335,27 @@ export default {
 
 }
 .myul1 li{
-  width: 200px;
-  height: 177px;
+  width: 275px;
   float: left;
-  padding: 0px 2px 3px 0px;
+  margin-left: 5px;
+  margin-top: 6px;
   border: 2px solid #ccc;
   background-color: #eee;
-  position: relative;
+  /* position: relative; */
 }
 .myul1 img{
   max-width: 100%;
   max-height: 100%;
-  /*margin-left: 20px;*/
 }
 .div {
-  line-height: 170px;
-  display: inline;
-  text-align: center;
-  /*background-color: #eee;*/
-  cursor: pointer;
-  vertical-align: center;
+  width: 100%;
+  position: relative;
 }
 
 .top {
   display: none;
   position: absolute;
+  left: 0px;
   top: 0;
   width: 100%;
   height: 30px;
@@ -318,6 +365,7 @@ export default {
   color: #fff;
   font-size: 12px;
   text-indent: 4px;
+  z-index:2;
 }
 .text{
   white-space: nowrap;
@@ -382,5 +430,24 @@ export default {
 }
 #face3{
   background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+.piclists{
+  width: 1126px;
+  height: 640px;
+  overflow: auto;
+  padding-top: 15px;
+}
+.piclist{
+  width: 257px;
+  float: left;
+  margin-left: 20px;
+  height: 100%;
+}
+.piclist li:hover{
+  box-shadow: 2px 2px 2px 2px #AAAAAA;
+}
+
+list1{
+  margin-left: 0px;
 }
 </style>

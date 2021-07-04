@@ -144,15 +144,15 @@ export default {
 @import url('../iconfont/iconfont1/iconfont.css');
 @import url('../iconfont/fa/css/all.css');
 .side{
-  width: 300px !important;
+  width: 300px ;
 }
 .title-wrapper{
-  height: 80px !important;
-  line-height: 80px !important;
+  height: 80px ;
+  line-height: 80px ;
 }
 .title{
-  width: 300px !important;
-  padding: 0 18px !important;
+  width: 300px ;
+  padding: 0 18px ;
   background-color:#1F75D5;
   font-family: Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
   font-weight: 400;
@@ -162,9 +162,9 @@ export default {
   float: left;
 }
 .header{
-  padding: 0px !important;
+  padding: 0px ;
   height: 80px !important;
-  line-height: 80px !important;
+  line-height: 80px;
   width:100%; 
   background-color:#0665D0;
 }
@@ -185,7 +185,7 @@ export default {
     border: #fff;
     border-radius: 4px;
     background-color: #0770E6;
-    font-weight: 900 !important;
+    font-weight: 900 ;
     font-size: 18px;
     color:#fff;
 }
@@ -196,7 +196,7 @@ export default {
     border: #fff;
     border-radius: 4px;
     background-color: #0770E6;
-    font-weight: 900 !important;
+    font-weight: 900 ;
     font-size: 18px;
     color:#fff;
     padding: 0 14px 0 18px;
@@ -231,9 +231,9 @@ icon3{
 
 .framework{
   width: 300px;
-  height: 803px !important;
+  height: 803px;
   background-color: #fff;
-  text-align: left !important;
+  text-align: left ;
 }
 
 .menuitem2{
@@ -247,13 +247,14 @@ icon3{
   color: red;
 }
 .icon{
-  font-size: 23px !important;
+  font-size: 23px ;
   margin-right: 8px;
   color:#5093DE !important;
-  font-weight: 400 !important;
+  font-weight: 400;
 }
 #main{
- width: 100% !important;
+ width: 100%;
+ height: 100%;
 
  padding: 10px 20px;
 }
