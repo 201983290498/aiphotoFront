@@ -1,10 +1,16 @@
 <template>
-$END$
+<!---->
 </template>
 
 <script>
 export default {
-name: "Pic.vue"
+  name: "Pic",
+  data: {
+
+  },
+  props:{
+
+  }
 }
 </script>
 
