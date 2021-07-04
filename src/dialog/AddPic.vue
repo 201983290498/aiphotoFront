@@ -29,23 +29,22 @@
                             <img :src="item.file.src">
                           </div>
                         </div>
-                      </div>                      
-                      <span class="add-content">选中{{imgList.length}}张文件，共{{bytesToSize(this.size)}}</span>  
+                      </div>
+                      <span class="add-content">选中{{imgList.length}}张文件，共{{bytesToSize(this.size)}}</span>
                     </li>
                     <li class="categy-label">评论</li>
-                    <li  class="categy-input"><el-input type="textarea" placeholder="说点什么吧。"  :autosize="{minRows: 4,maxRows:4}"></el-input></li>
+                    <li  class="categy-input"><el-input type="textarea" placeholder="说点什么吧。" v-model="remark" :autosize="{minRows: 4,maxRows:4}"></el-input></li>
                 </ul>
                 <input @change="fileChange($event)" type="file" id="upload_file" multiple style="display:none"/>
                 <div class="categy-btn">
                 <el-button class="button1" type="primary" @click="submitImg"><span class="iconfont">&#xe7dd;</span> 提交</el-button>
-                </div>     
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-
 export default {
   name: "Addpic",
   data () {
@@ -54,15 +53,18 @@ export default {
       sendImgList: [],
       size: 0,
       addcategy: '',
-      pricategy: this.GLOBAL.pricategy
+      pricategy: this.GLOBAL.pricategy,
+      remark: ''
     }
   },
   props:{
     ispublic:{
-      type: Boolean
+      type: Boolean,
+      default: true
     },
     categy: {
-      type: String
+      type: String,
+      default:null,
     },
     username: {
       type: String
@@ -102,7 +104,7 @@ export default {
         .then((res)=> {
           vm.$message.success("成功上传"+res.data+"张图片");
           this.$router.push({name:"PictureListWait",params:{username: this.username,categy:this.categy,ispublic:this.ispublic}});
-        }).catch((error) =>{})  
+        }).catch((error) =>{})
       this.$router.push({name:"PictureListWait",params:{username: this.username,categy:this.categy,ispublic:this.ispublic}});
       this.closeDialog();
     },
@@ -177,7 +179,7 @@ export default {
     width: 100%;
     height: 100%;
 }
-.add-pic-border{
+.add-pic-dialog .add-pic-border{
     background-color: #F0F3F8;
     border-radius: 20px;
     position: absolute;
@@ -186,7 +188,7 @@ export default {
     top: 50%;
     transform: translate(-50%,-50%);
 }
-.closeImg{
+.add-pic-dialog .closeImg{
     width: 20px;
     height: 20px;
     float: right;
@@ -198,14 +200,14 @@ export default {
     background-size:cover;
     background-repeat: no-repeat;
 }
-  .add-wrapper{
+.add-pic-dialog .add-wrapper{
     margin: 40px 20px 10px 20px;
     color: black !important;
     border: 1px solid #E4E9F3;
     text-align: left;
     background-color:#Fff;
   }
-  .add-title{
+.add-pic-dialog .add-title{
     width:100%;
     height: 56px;
     background-color: #FAFAFA;
@@ -217,7 +219,7 @@ export default {
     color:#5C5E5D;
   }
 
-  .categyform .categy-input{
+ .categyform .categy-input{
     margin-bottom: 25px;
   }
   .categyform{
@@ -241,7 +243,7 @@ export default {
   .categy-btn{
     padding: 0 20px;
   }
-  .categy-btn .button1 {
+  .categy-btn .button1{
     background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
     /* background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%); */
     margin-left: 0px;
@@ -252,7 +254,7 @@ export default {
     margin-top: -10px;
     color:#6C757D;
     font-weight: 700;
-  } 
+  }
   .categy-btn .button1:hover{
     box-shadow: 3px 5px 0px 0px #E2E4EC;
     color:#495057;
@@ -337,5 +339,8 @@ export default {
 .categyform .upload_warp_img {
   border-top: 1px solid #D2D2D2;
   overflow: hidden
+}
+.selected input {
+  width: 100% !important;
 }
 </style>

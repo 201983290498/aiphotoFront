@@ -22,7 +22,7 @@
             </el-dropdown>
             </button>
           </div>
-          
+          <AddPic v-if="openAdd" :username="username"  @closeDialog="closeAddDialog"></AddPic>
         </div>
       </div>
       <div class="function_wrapper"></div>
@@ -73,7 +73,7 @@
 
 
 <script>
-
+import AddPic from '../dialog/AddPic.vue'
 export default {
   name: 'DashBoard',
   data(){
@@ -82,7 +82,11 @@ export default {
         publiccategy: [],
         privatecategy: [],
         list: [],
+        openAdd: false
       }
+  },
+  components:{
+    AddPic
   },
   methods: {
     toPrivateSub: function () {
@@ -97,9 +101,11 @@ export default {
       this.$router.push({name:"PictureListWait",params:{username: username,categy:categy,ispublic:ispublic}});
     },
     addPic: function (){
-      var vm = this;
-      this.$router.push({name:"AddPic", params:{username: vm.username,categy: null, ispublic: false}});
-      console.log("添加图片")
+      console.log("添加图片");
+      this.openAdd = true;
+    },
+    closeAddDialog(flag){
+      this.openAdd = flag;
     },
     tocheck2:function(){
       var vm = this;
