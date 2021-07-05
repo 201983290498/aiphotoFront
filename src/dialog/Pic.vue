@@ -1,5 +1,5 @@
 <template>
-   <div class="outer1">
+   <div class="outer1" :id="'outer1'+picture.id">
         <div class="img-wraper1" >
             <span @click="createDialog(picture)"><img :src="picture.b64" alt=""> </span>
             <div class="dots-wrapper">
@@ -94,6 +94,14 @@ export default {
     if(this.picture.remark=='null'||this.picture.remark=="")
       this.picture.remark = "说点什么吧。";
     this.setIconRed();
+    let vm = this;
+    let box = document.getElementById('outer1'+vm.picture.id);
+    box.onmouseleave = function(){
+      let node = document.getElementById('details'+vm.picture.id);
+      node.style.display = 'none';
+      console.log('dsad');
+    }
+
   }
 }
 </script>

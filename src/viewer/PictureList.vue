@@ -335,9 +335,8 @@ export default {
 
 }
 .myul1 li{
-  width: 275px;
+  width: 100%;
   float: left;
-  margin-left: 5px;
   margin-top: 6px;
   border: 2px solid #ccc;
   background-color: #eee;
@@ -440,14 +439,24 @@ export default {
 .piclist{
   width: 257px;
   float: left;
-  margin-left: 20px;
+  margin-left: 5px;
   height: 100%;
 }
 .piclist li:hover{
   box-shadow: 2px 2px 2px 2px #AAAAAA;
 }
 
-list1{
-  margin-left: 0px;
+.list1{
+  margin-left: 10px;
+  background-color: red;
+}
+.list2{
+  background-color: blue;
+}
+.list3{
+  background-color: yellow;
+}
+.list4{
+  background-color: green;
 }
 </style>
