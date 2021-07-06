@@ -71,7 +71,13 @@ export default {
               vm.GLOBAL.username = _name;
               vm.GLOBAL.password = _password;
               vm.GLOBAL.pripassword = false;
+              vm.GLOBAL.ispublic= true;
+              console.log(vm.GLOBAL.ispublic);
               vm.GLOBAL.pictureList = [];
+              vm.GLOBAL.deleteStatus = false;
+              vm.GLOBAL.deleteList = [];
+              vm.GLOBAL.deleteMap = [];
+              vm.GLOBAL.pricategy = [];
               vm.$router.push({name: "DashBoard", params: {username: _name}});
             } else {
               vm.$message.warning("账号或密码错误,请重新输入");

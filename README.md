@@ -20,10 +20,13 @@ npm run build --report
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
  
- # 运行失败
+# 运行失败
  可以尝试删除node_modules下除了.bin以外的所有依赖，然后运行npm install ,再运行npm run dev
  
 
+
+# 待解决的问题:
+    vue中如何获取绑定了需要异步获取的后端信息的标签元素。通过class类无法访问，例如进入删除状态时每个页面的删除显示条如何显示出来。
 
 # 软件杯学习笔记
 
@@ -50,4 +53,5 @@ console.info(_this);
 box.onmouseout = function(){
     
 }
+
 ```

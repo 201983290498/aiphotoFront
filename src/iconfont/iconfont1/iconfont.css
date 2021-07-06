@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 2621963 */
-  src: url('iconfont.woff2?t=1625301354393') format('woff2'),
-       url('iconfont.woff?t=1625301354393') format('woff'),
-       url('iconfont.ttf?t=1625301354393') format('truetype');
+  src: url('iconfont.woff2?t=1625534257568') format('woff2'),
+       url('iconfont.woff?t=1625534257568') format('woff'),
+       url('iconfont.ttf?t=1625534257568') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,70 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-weiyi:before {
+  content: "\f7c0";
+}
+
+.icon-cailanzi:before {
+  content: "\e674";
+}
+
+.icon-listpress:before {
+  content: "\e608";
+}
+
+.icon-jiazaizhong:before {
+  content: "\e6ab";
+}
+
+.icon-gouwulan:before {
+  content: "\e61a";
+}
+
+.icon-lajitong:before {
+  content: "\e618";
+}
+
+.icon-cailanzi1:before {
+  content: "\e611";
+}
+
+.icon-lajitong1:before {
+  content: "\e6e6";
+}
+
+.icon-liebiao:before {
+  content: "\e619";
+}
+
+.icon-biaodanliebiao-14:before {
+  content: "\e63a";
+}
+
+.icon-xiazai:before {
+  content: "\e61b";
+}
+
+.icon-delete:before {
+  content: "\ea16";
+}
+
+.icon-chazhaobiaodanliebiao:before {
+  content: "\e60b";
+}
+
+.icon-shanchulajitong:before {
+  content: "\e65c";
+}
+
+.icon-liebiao1:before {
+  content: "\e6a0";
+}
+
+.icon-table:before {
+  content: "\e60a";
 }
 
 .icon-xiazaitupian:before {

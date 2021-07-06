@@ -9,6 +9,8 @@ export default {
     let username= this.$route.params.username;
     let categy = this.$route.params.categy;
     let ispublic = this.$route.params.ispublic;
+    this.GLOBAL.categy = categy;
+    this.GLOBAL.ispublic = ispublic;
     this.$router.push({name:"PictureList",params:{username: username,categy:categy,ispublic:ispublic}});
   }
 }

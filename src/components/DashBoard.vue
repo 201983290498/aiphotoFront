@@ -7,9 +7,11 @@
          <router-link to="/logout" class="title">AIPhoto</router-link>
         </div>
         <div class="function-wrapper">
-          <ul class="function-list">
-            <li class="function"></li>
-          </ul>
+          <div class="function-list">
+            <button class="titlebtn"><i class="iconfont">&#xe6a0;</i></button>
+            <button class="titlebtn" ><i class="iconfont">&#xe6c6;</i></button>
+            <button class="titlebtn" @click="enterDeleteStatu"><i class="iconfont">&#xea16;</i></button>          
+          </div>
           <div class="others clearlfix">
             <button class="titlebtn"><i class="far fa fa-language"></i></button>
             <button class="user  userbtn"><i class="far fa fa-user-circle icon1"></i>{{username}}
@@ -76,13 +78,13 @@ import AddPic from '../dialog/AddPic.vue'
 export default {
   name: 'DashBoard',
   data(){
-      return{
-        username: this.$route.params.username,
-        publiccategy: [],
-        privatecategy: [],
-        list: [],
-        openAdd: false
-      }
+    return{
+      username: this.$route.params.username,
+      publiccategy: [],
+      privatecategy: [],
+      list: [],
+      openAdd: false
+    }
   },
   components:{
     AddPic
@@ -113,9 +115,21 @@ export default {
       else
         this.toPrivateSub();
     },
+    enterDeleteStatu(){
+      let vm = this;
+      if(!this.GLOBAL.deleteStatus){
+        this.GLOBAL.deleteStatus = true;
+        console.log(this.GLOBAL.categy);
+        console.log(vm.GLOBAL.ispublic)
+        console.log(this.GLOBAL.username);
+        this.$router.push({name:"PictureListWait",params:{username: vm.GLOBAL.username,categy:vm.GLOBAL.categy,ispublic:vm.GLOBAL.ispublic}});
+
+      }
+      else
+        console.log("展示删除列表");
+    }
   },
   created() {
-
     var vm=this;
     var address = '/api/categy?'+"username="+this.username+"&ispublic=false";
     this.axios({
@@ -126,7 +140,6 @@ export default {
       vm.GLOBAL.pricategy = reps.data;
       console.log(vm.GLOBAL.pricategy);
     });
-
     this.axios({
       method: "GET",
       url: '/api/categy?username=admin&ispublic=true'
@@ -134,7 +147,6 @@ export default {
       vm.publiccategy = reps.data;
       vm.$router.push({name:"SubMain1", params:{username: vm.username, categy:vm.publiccategy}});
     });
-
   }
 };
 </script>
@@ -171,22 +183,18 @@ export default {
   text-decoration: underline;
   color: #fff;
 }
-.others{
-  float: right;
-  padding-right: 28px;
-}
 
 .titlebtn{
-    margin-right: 4px;
-    padding: 0px 18px;
-    height: 46px;
-    margin-top: 18px;
-    border: #fff;
-    border-radius: 4px;
-    background-color: #0770E6;
-    font-weight: 900 ;
-    font-size: 18px;
-    color:#fff;
+  margin-right: 4px;
+  padding: 0px 18px;
+  height: 46px;
+  margin-top: 18px;
+  border: #fff;
+  border-radius: 4px;
+  background-color: #0770E6;
+  font-weight: 900 ;
+  font-size: 18px;
+  color:#fff;
 }
 .userbtn{
     margin-right: 4px;
@@ -263,4 +271,13 @@ icon3{
   padding-left: 0;
   background-color: #F0F3F8;
 }
+.function-list{
+  float: left;
+  padding-left: 28px;
+}
+.others{
+  float: right;
+  padding-right: 28px;
+}
+
 </style>
