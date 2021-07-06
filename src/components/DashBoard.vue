@@ -59,7 +59,6 @@
       </el-aside>
       </div>
       <el-container>
-
         <el-main class="body" id="main">
           <router-view></router-view>
         </el-main>

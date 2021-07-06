@@ -19,9 +19,10 @@
                     <i class="fas fa-clock"></i>
                     {{picture.time.split("T")[0]}}
                 </h3>
-                <p class="briefintro1">
+                <p class="briefintro1" @click="editRemark" :id="'remark'+picture.id">
                     {{picture.remark}}
                 </p>
+                <textarea v-model="picture.remark" class="briefintro1 remarkInput" :id="'edit'+picture.id"></textarea>
             </div>
             <div class="star-warper1">
                 <ul class="star1" :id="'like'+picture.id">
@@ -87,6 +88,27 @@ export default {
           node.style.display = 'none';
         else
           node.style.display = 'inline-block'
+    },
+    editRemark(){
+      let p = document.getElementById('remark'+this.picture.id);
+      let textarea = document.getElementById('edit'+this.picture.id);
+      p.style.display='none';
+      textarea.style.display='block';
+      textarea.focus();
+    },
+    setRemark(){
+      let vm = this;
+      this.axios({
+        method: 'post',
+        url: '/api/b64picture/setRemark',
+        data: {
+          id: vm.picture.id,
+          remark: vm.picture.remark
+        }
+      }).then(function(resp){
+        if(resp.data=='false')
+          vm.$message.warning("后台系统错误");
+      });
     }
   },
   mounted(){
@@ -99,9 +121,14 @@ export default {
     box.onmouseleave = function(){
       let node = document.getElementById('details'+vm.picture.id);
       node.style.display = 'none';
-      console.log('dsad');
     }
-
+    let p = document.getElementById('remark'+this.picture.id);
+    let textarea = document.getElementById('edit'+this.picture.id);
+    textarea.onmouseleave = function(){
+      p.style.display = 'block';
+      textarea.style.display = 'none';
+      vm.setRemark();
+    }
   }
 }
 </script>
@@ -222,5 +249,15 @@ export default {
 }
 .dots:hover li{
   background-color: #fff;
+}
+.remarkInput{
+  border: 0px;
+  width: 100%;
+  word-break:break-all; 
+  display: none;
+/* 文本框输入的时候，即获取焦点时的外边框设置 */
+}
+.remarkInput:focus{
+  outline: 0.5px solid #87CEFA;
 }
 </style>

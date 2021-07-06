@@ -125,11 +125,12 @@ export default {
     font-size: 15px;
     margin-bottom: 5px;
   }
+  /* input框 placeholder的字样设置 */
   .categyform input::-webkit-input-placeholder,.categyform textarea::-webkit-input-placeholder {
     color: #6C757D;
     font-size:15px;
   }
-
+/* 输入时的样式设定 */
   .categyform input:focus,.categyform textarea:focus{
     border: 1px solid blue;
     box-shadow: 2px 2px 2px 2px #C1D8F3;

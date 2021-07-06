@@ -222,8 +222,8 @@ export default {
         url: '/api/b64pictures/delete'
       }).then(function (reps){
         vm.$message.success("成功删除"+reps.data+"张图片");
+        vm.$router.push({name:"PictureListWait",params:{username: vm.username,categy:vm.categy,ispublic:vm.ispublic}});
       });
-      this.$router.push({name:"PictureListWait",params:{username: this.username,categy:this.categy,ispublic:this.ispublic}});
       this.deletelist = [];
     },
     faceRecog: function (){
@@ -310,7 +310,6 @@ export default {
   },
   created(){
     this.getPic();
-
   }
 }
 </script>
@@ -446,17 +445,4 @@ export default {
   box-shadow: 2px 2px 2px 2px #AAAAAA;
 }
 
-.list1{
-  margin-left: 10px;
-  background-color: red;
-}
-.list2{
-  background-color: blue;
-}
-.list3{
-  background-color: yellow;
-}
-.list4{
-  background-color: green;
-}
 </style>

@@ -171,6 +171,7 @@ export default {
 
 <style>
 @import url('../css/loadpic.css');
+/* 设置背景颜色 */
 .add-pic-dialog{
     position: fixed;
     top: 0;
@@ -179,21 +180,24 @@ export default {
     width: 100%;
     height: 100%;
 }
+/* dialog在中心开启绝对定位 */
 .add-pic-dialog .add-pic-border{
     background-color: #F0F3F8;
     border-radius: 20px;
     position: absolute;
-    width: 49%;
+    width: 49.4%;
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
 }
+ 
 .add-pic-dialog .closeImg{
     width: 20px;
     height: 20px;
     float: right;
     margin-right: 5px;
     margin-top: 5px;
+    /* 移入时的样式 */
     cursor: pointer;
     background-image: url('../../static/icon/delete.png');
     /* 北京图片大小设置，不设置会导致图图片大小为原图大小 */
