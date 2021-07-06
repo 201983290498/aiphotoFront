@@ -9,8 +9,8 @@
         <div class="function-wrapper">
           <div class="function-list">
             <button class="titlebtn"><i class="iconfont">&#xe6a0;</i></button>
-            <button class="titlebtn" ><i class="iconfont">&#xe6c6;</i></button>
-            <button class="titlebtn" @click="enterDeleteStatu"><i class="iconfont">&#xea16;</i></button>          
+            <button class="titlebtn" @click="enterDeleteStatu(2)"><i class="iconfont">&#xe6c6;</i></button>
+            <button class="titlebtn" @click="enterDeleteStatu(3)"><i class="iconfont">&#xea16;</i></button>          
           </div>
           <div class="others clearlfix">
             <button class="titlebtn"><i class="far fa fa-language"></i></button>
@@ -27,7 +27,6 @@
           <AddPic v-if="openAdd" :username="username"  @closeDialog="closeAddDialog"></AddPic>
         </div>
       </div>
-      <div class="function_wrapper"></div>
     </el-header>
     <el-container  class="container">
       <div class="framework">
@@ -83,7 +82,8 @@ export default {
       publiccategy: [],
       privatecategy: [],
       list: [],
-      openAdd: false
+      openAdd: false,
+      indexStatus: 1
     }
   },
   components:{
@@ -115,18 +115,34 @@ export default {
       else
         this.toPrivateSub();
     },
-    enterDeleteStatu(){
-      let vm = this;
-      if(!this.GLOBAL.deleteStatus){
-        this.GLOBAL.deleteStatus = true;
-        console.log(this.GLOBAL.categy);
-        console.log(vm.GLOBAL.ispublic)
-        console.log(this.GLOBAL.username);
-        this.$router.push({name:"PictureListWait",params:{username: vm.GLOBAL.username,categy:vm.GLOBAL.categy,ispublic:vm.GLOBAL.ispublic}});
-
+    enterDeleteStatu(index){
+      if(this.indexStatus!=index){
+        this.indexStatus  = index;
+        this.GLOBAL.deleteList = [];
+        this.GLOBAL.deleteStatus = false;
+        // map的遍历
+        for(let key of this.GLOBAL.deleteMap){
+          this.GLOBAL.deleteMap.set(key[0],'delete');
+        }
       }
-      else
-        console.log("展示删除列表");
+      let vm = this;
+      if(index==3){
+        if(!this.GLOBAL.deleteStatus){
+          vm.$message.info("请选择需要删除的图片");
+          this.GLOBAL.deleteStatus = true;
+          this.$router.push({name:"PictureListWait",params:{username: vm.GLOBAL.username,categy:vm.GLOBAL.categy,ispublic:vm.GLOBAL.ispublic}});
+        }
+        else
+          console.log("展示删除列表");
+      }else if(index == 2){
+        if(!this.GLOBAL.deleteStatus){
+          vm.$message.info("请选择需要下载的图片");
+          this.GLOBAL.deleteStatus = true;
+          this.$router.push({name:"PictureListWait",params:{username: vm.GLOBAL.username,categy:vm.GLOBAL.categy,ispublic:vm.GLOBAL.ispublic}});
+        }
+        else
+          console.log("展示下载图片列表");
+      }
     }
   },
   created() {
@@ -146,7 +162,7 @@ export default {
     }).then(function (reps) {
       vm.publiccategy = reps.data;
       vm.$router.push({name:"SubMain1", params:{username: vm.username, categy:vm.publiccategy}});
-    });
+    }); 
   }
 };
 </script>

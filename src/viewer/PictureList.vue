@@ -122,7 +122,7 @@ export default {
         if(resp.data.length==0)
           vm.finished = true;
         //重新定义
-          vm.deleteMap = new Map();
+        vm.deleteMap = new Map();
         if(vm.GLOBAL.pictureList.length==0){
           vm.GLOBAL.pictureList = new Map();
           vm.GLOBAL.deleteMap = new Map();

@@ -76,7 +76,7 @@ export default {
               vm.GLOBAL.pictureList = [];
               vm.GLOBAL.deleteStatus = false;
               vm.GLOBAL.deleteList = [];
-              vm.GLOBAL.deleteMap = [];
+              vm.GLOBAL.deleteMap = new Map();
               vm.GLOBAL.pricategy = [];
               vm.$router.push({name: "DashBoard", params: {username: _name}});
             } else {
