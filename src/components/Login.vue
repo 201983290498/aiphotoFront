@@ -1,27 +1,27 @@
 <template>
 
-  <div class="login-box">
-    <div class="title-wrapper">
-      <a href="javascript:;"><span class="title-name">AIPhoto</span></a>
-      <button class="titlebtn clearfix"><i class="far fa fa-language"></i></button>
-      <p class="title-content">WELCOME TO OUR AIPHOTO SYSTEM</p>
+  <div class="login-box0">
+    <div class="title-wrapper0">
+      <a href="javascript:;"><span class="title-name0">AIPhoto</span></a>
+      <button class="titlebtn0 clearfix"><i class="far fa fa-language"></i></button>
+      <p class="title-content0">WELCOME TO OUR AIPHOTO SYSTEM</p>
     </div>
-    <el-form class="form1" ref="form" :rules="rule" :model="form" label-width="80px">  
-      <div class="input" prop="name">
-        <el-input class="textbox iconfont" v-model="form.name" placeholder="用户名"><i class="iconfont">&#xe60f;</i></el-input>
+    <el-form class="form10" ref="form" :rules="rule" :model="form" label-width="80px">  
+      <div class="input0" prop="name">
+        <el-input class="textbox0 iconfont" v-model="form.name" placeholder="用户名"><i class="iconfont">&#xe60f;</i></el-input>
       </div>
-      <div class="input">
+      <div class="input0">
         <i class="iconfont"></i>
-        <el-input class="textbox" type="password" v-model="form.password" placeholder="密码"></el-input>
+        <el-input class="textbox0" type="password" v-model="form.password" placeholder="密码"></el-input>
       </div>
-      <div class="loginbtn">
-        <el-button class="button1 font1" type="primary" @click="onSubmit('form')"><span class="iconfont">&#xe741;</span> 登入</el-button>
+      <div class="loginbtn0">
+        <el-button class="button10 font10" type="primary" @click="onSubmit('form')"><span class="iconfont">&#xe741;</span> 登入</el-button>
       </div>
-      <div class="clearfix1 clearfix">
-      <ul >
-        <li @click="Register()"><span class="register"  >注册</span></li>
-        <li class="line">|</li>
-        <li><span >忘记密码</span></li>
+      <div class="clearfix10 clearfix">
+      <ul>
+        <li @click="Register()" class="li"><span class="register0"  >注册</span></li>
+        <li class="line0 li">|</li>
+        <li class="li"><span >忘记密码</span></li>
       </ul>
       </div>
 
@@ -78,6 +78,8 @@ export default {
               vm.GLOBAL.deleteList = [];
               vm.GLOBAL.deleteMap = new Map();
               vm.GLOBAL.pricategy = [];
+              vm.GLOBAL.downStatus = false;
+              vm.GLOBAL.showList = false;
               vm.$router.push({name: "DashBoard", params: {username: _name}});
             } else {
               vm.$message.warning("账号或密码错误,请重新输入");
@@ -101,12 +103,104 @@ export default {
 </script>
 
 <style scoped>
-@import url('../css/login.css');
+
 @import url('../iconfont/iconfont1/iconfont.css');
 @import url('../iconfont/fa/css/all.css');
 
+/* 设置标题框的大小 */
+.title-wrapper0{
+    width: 410px;
+    /* height: 76px; */
+    margin: 0 auto;
+}
+.title-wrapper0 a{
+    display: block;
+    margin-top: 30px;
+    text-align: center;
+    text-decoration: none;
+}
+.title-name0{
+    font-size: 35px;
+    color: #343A40;
+    font-family: Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+    font-weight: 700 !important;
+}
+.title-content0{
+    width: 100%;
+    font-size: 0.875rem;
+    text-align: center;
+    font-weight: 700!important;
+    color: #6C757C;
+    margin-top: 5px;
+    margin-bottom: 22px;
+}
 
-.login-box {
+
+.title-wrapper0 a:hover{
+    text-decoration: underline;
+}
+
+.input0{
+    margin-bottom: 24px;
+}
+ul .li{
+    float: left;
+    font-size: 16px;
+    font-weight: 700 !important;
+    color: #6c757d;
+}
+.line0,.line0:hover{
+    margin: 0 10px;
+    color: #E8E8E8;
+}
+.register0{
+    margin-left: 165px;
+}
+
+.el-button0 span{
+    font-size: 21px;
+    vertical-align: -2px;
+    margin-right: -4px;
+}
+.font10{
+    font-weight: 700 !important;
+}
+.clearfix10{
+    margin-bottom: 45px;
+}
+ul .li:hover{
+    color: #3D4246;
+}
+
+.titlebtn0{
+    float: right;
+    margin-top: -52px;
+    margin-right: 4px;
+    width: 57px;
+    height: 46px;
+    border: #fff;
+    border-radius: 4px;
+    background-color: #F8F9FC;
+    font-weight: 900 !important;
+    font-size: 18px;
+}
+.titlebtn0:hover{
+ background-color: #D7DEED;
+}
+.button10 {
+  background-color: #0665D0;
+  margin-left: 0px;
+  font-size: 16px;
+  width: 100%;
+  height: 45px;
+  margin-bottom: 25px;
+}
+.button10:hover{
+  background-color: #117EF8;
+  box-shadow: 3px 5px 0px 0px #E2E4EC;
+}
+
+.login-box0 {
   width: 500px;
   border: 1px solid  #E2E4EC;
   margin: 150px auto; /*margin调剧中*/
@@ -118,7 +212,7 @@ export default {
 
 }
 
-.title {
+.title0 {
   align-items: center;
 }
 
@@ -126,9 +220,10 @@ export default {
 
 
 
-.el-button--text {
+.el-button--text0 {
   font-family: 微软雅黑;
 }
+
 
 
 </style>

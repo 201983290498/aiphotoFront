@@ -6,6 +6,55 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1111186",
+      "name": "撤销",
+      "font_class": "icon",
+      "unicode": "e63d",
+      "unicode_decimal": 58941
+    },
+    {
+      "icon_id": "3719701",
+      "name": "撤销",
+      "font_class": "chexiao",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "14723386",
+      "name": "撤销",
+      "font_class": "f-revoke",
+      "unicode": "e778",
+      "unicode_decimal": 59256
+    },
+    {
+      "icon_id": "17445452",
+      "name": "撤销",
+      "font_class": "chexiao1",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "18285721",
+      "name": "撤销键",
+      "font_class": "chexiaojian",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "19019989",
+      "name": "撤销",
+      "font_class": "chexiao2",
+      "unicode": "e63e",
+      "unicode_decimal": 58942
+    },
+    {
+      "icon_id": "19742278",
+      "name": "返 回 (1)",
+      "font_class": "fanhui1",
+      "unicode": "e665",
+      "unicode_decimal": 58981
+    },
+    {
       "icon_id": "22654276",
       "name": "卫衣",
       "font_class": "weiyi",

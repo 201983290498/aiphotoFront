@@ -55,8 +55,6 @@
             <!-- 通过axios获取有多少个分类 通过v-for来写-->
           </el-submenu>
         </el-menu>
-
-
       </el-aside>
       </div>
       <el-container>
@@ -64,10 +62,8 @@
           <router-view></router-view>
         </el-main>
       </el-container>
-
     </el-container>
 <!-- 添加用户的对话框 -->
-
   </div>
 </template>
 
@@ -130,18 +126,24 @@ export default {
         if(!this.GLOBAL.deleteStatus){
           vm.$message.info("请选择需要删除的图片");
           this.GLOBAL.deleteStatus = true;
+          this.GLOBAL.downStatus = false;
           this.$router.push({name:"PictureListWait",params:{username: vm.GLOBAL.username,categy:vm.GLOBAL.categy,ispublic:vm.GLOBAL.ispublic}});
         }
-        else
-          console.log("展示删除列表");
+        else{
+          this.GLOBAL.showList = true;
+          this.$router.push({name:"PictureListWait",params:{username: vm.GLOBAL.username,categy:vm.GLOBAL.categy,ispublic:vm.GLOBAL.ispublic}});
+        }
       }else if(index == 2){
         if(!this.GLOBAL.deleteStatus){
           vm.$message.info("请选择需要下载的图片");
           this.GLOBAL.deleteStatus = true;
+          this.GLOBAL.downStatus = true;
           this.$router.push({name:"PictureListWait",params:{username: vm.GLOBAL.username,categy:vm.GLOBAL.categy,ispublic:vm.GLOBAL.ispublic}});
         }
-        else
-          console.log("展示下载图片列表");
+        else{
+          this.GLOBAL.showList = true;
+          this.$router.push({name:"PictureListWait",params:{username: vm.GLOBAL.username,categy:vm.GLOBAL.categy,ispublic:vm.GLOBAL.ispublic}});
+        }
       }
     }
   },

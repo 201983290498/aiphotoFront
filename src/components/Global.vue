@@ -11,6 +11,8 @@ var selectStatus = false;
 var pictureList = [];
 var deleteList = [];
 var deleteMap = [];
+var downStatus = false;
+var showList = false;
 export default
 {
     username,
@@ -23,6 +25,8 @@ export default
     deleteList,
     deleteMap,
     ispublic,
-    categy
+    categy,
+    downStatus,
+    showList
 }
 </script>

@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class=" div-height" >
+    <div class=" div-height" v-if="!downStatus&&!showList">
       <Button icon="ios-cloud-upload-outline" class="btn success text1 btn1" @click="deleteStatus1" id="deletebtn">删除图片</Button>
-      <Button icon="ios-cloud-upload-outline" class="btn success btn2 text2"  @click="quitDelete">取消删除</Button>
-      <Button icon="ios-cloud-upload-outline" class="btn success text1 btn2" @click="comDelete">确认删除</Button>
-      <Button icon="ios-cloud-upload-outline" class="face btn success" id="face1" @click="faceRecog" v-if="!ispublic||(categy=='人物')">人脸聚合</Button>
-      <Button icon="ios-cloud-upload-outline" class="face btn success" id="face3" @click="comRecog(0)">取&nbsp;&nbsp;消</Button>
+      <Button icon="ios-cloud-upload-outline" class="btn success btn2 text2"  @click="quitDelete" >取消删除</Button>
+      <Button icon="ios-cloud-upload-outline" class="btn success text1 btn2" @click="comDelete" >确认删除</Button>
+      <Button icon="ios-cloud-upload-outline" class="face btn success" id="face1" @click="faceRecog" v-if="(!ispublic||(categy=='人物'))">人脸聚合</Button>
+      <Button icon="ios-cloud-upload-outline" class="face btn success" id="face3" @click="comRecog(0)" >取&nbsp;&nbsp;消</Button>
       <Button icon="ios-cloud-upload-outline" class="face btn success" id="face2" @click="comRecog(1)" >确认聚合</Button>
     </div>
     <div class="piclists clearfix">
@@ -71,7 +71,12 @@
         </ul>
       </div>
     </div>
-    <div class="add-icon-wrapper" @click="addPic" v-if="!show_Pic"><i class="iconfont add-icon">&#xe604;</i></div>
+    <div v-if="!show_Pic&&!showList">
+      <div class="add-icon-wrapper" @click="addPic" v-if="!downStatus"><i class="iconfont add-icon">&#xe604;</i></div>
+      <div class="add-icon-wrapper1" @click="downLoadPics" v-if="downStatus"><i class="iconfont add-icon1">&#xe662;</i></div>
+      <div class="add-icon-wrapper2" @click="quitDown()" v-if="downStatus" ><i class="iconfont add-icon2">&#xe778;</i></div>
+    </div>
+    <div class="add-icon-wrapper2" @click="quitDown(2)" v-if="showList" ><i class="iconfont add-icon2">&#xe778;</i></div>
     <OnePictureShow v-if="show_Pic" :picture="picExample" @closeDialog="closeDialog" @downLoad="downLoadPic"></OnePictureShow>
     <AddPic v-if="openAdd" :username="username" :categy="categy" :ispublic="ispublic" @closeDialog="closeAddDialog"></AddPic>
   </div>
@@ -104,6 +109,8 @@ export default {
       openAdd: false,
       status: true,
       deleteMap: {},
+      downStatus: false,
+      showList: false
     }
   },
   methods: {
@@ -127,13 +134,21 @@ export default {
           vm.GLOBAL.pictureList = new Map();
           vm.GLOBAL.deleteMap = new Map();
         }
-        for(let i=0;i<vm.ids.length;i++){
-          let id = vm.ids[i];
-          vm.getPicById(add,id,true);
-          if(i==vm.ids.length-1)
-            vm.finished = true;
+        if(!vm.showList){
+          for(let i=0;i<vm.ids.length;i++){
+            let id = vm.ids[i];
+            vm.getPicById(add,id,true);
+            if(i==vm.ids.length-1)
+              vm.finished = true;
+          }
+        }else{
+          for(let i=0;i<vm.GLOBAL.deleteList.length;i++){
+            let id = vm.GLOBAL.deleteList[i];
+            vm.getPicById(add,id,true);
+            if(i==vm.GLOBAL.deleteList.length-1)
+              vm.finished = true;
+          }
         }
-        
       });
     },
 
@@ -300,10 +315,12 @@ export default {
       this.GLOBAL.deleteList = [];
     },
     downLoadPics: function(){
+      this.downStatus = false;
+      this.GLOBAL.downStatus = false;
       let vm = this;
-      let pics = this.GLOBAL.pictureList;
-      for(let i=0;i<this.GLOBAL.deleteList.length;i++){
-        vm.downLoadPic(pics.get(vm.GLOBAL.deleteList[i]));
+      let picList = this.GLOBAL.deleteList;
+      for(let i=0;i<picList.length;i++){
+        vm.downLoadPic(this.GLOBAL.pictureList.get(picList[i]));
       }
       //回复到默认状态
       this.quitDelete();
@@ -315,6 +332,16 @@ export default {
       a.download = picture.picname;
       a.href = picture.b64;
       a.dispatchEvent(event);
+    },
+    quitDown(step){
+      let vm = this;
+      if(step!=2){
+        this.downStatus = false;
+        this.GLOBAL.downStatus = false;
+        this.quitDelete();
+      }else{
+        this.$router.push({name:"PictureListWait",params:{username: vm.GLOBAL.username,categy:vm.GLOBAL.categy,ispublic:vm.GLOBAL.ispublic}});
+      }
     },
     createDialog: function(pic){
       let vm = this;
@@ -330,8 +357,13 @@ export default {
     closeAddDialog(flag){
       this.openAdd = false;
     },
+
   },
   created(){
+    if(this.GLOBAL.showList){
+      this.GLOBAL.showList = false;
+      this.showList = true;
+    }
     this.getPic();
   },
   mounted(){
@@ -340,6 +372,7 @@ export default {
     }
     this.status = this.GLOBAL.deleteStatus;
     this.deleteMap = this.GLOBAL.deleteMap;
+    this.downStatus = this.GLOBAL.downStatus;
   }
 }
 </script>
@@ -437,13 +470,41 @@ export default {
   bottom: 40px;
   right: 60px;
 }
+.add-icon-wrapper1{
+  position: absolute;
+  bottom: 40px;
+  right: 160px;
+}
+.add-icon-wrapper2{
+  position: absolute;
+  bottom: 39px;
+  right: 60px;
+}
 .add-icon{
   font-size: 54px;
   color: #00CC99;
   cursor:pointer;
 }
+.add-icon1{
+  font-size: 53px;
+  color: #6CCBFF;
+  cursor:pointer;
+}
+.add-icon2{
+  font-size: 54px;
+  color: #777676;
+  cursor:pointer;
+}
+.add-icon1:hover{
+  color:#0260FF;
+  text-shadow: 2px 2px 2px 2px #ccc;
+}
 .add-icon:hover{
   color: #02D8A3;
+  text-shadow: 2px 2px 2px 2px #ccc;
+}
+.add-icon2:hover{
+  color:#666;
   text-shadow: 2px 2px 2px 2px #ccc;
 }
 .wait {
@@ -474,5 +535,4 @@ export default {
 .piclist li:hover{
   box-shadow: 2px 2px 2px 2px #AAAAAA;
 }
-
 </style>
