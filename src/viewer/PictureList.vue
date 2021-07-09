@@ -165,7 +165,7 @@ export default {
         }
       }).then(function(resp){
         vm.ids = resp.data;
-        add = "/api/b64picture?username="+username+ "&id=";
+        let add = "/api/b64picture?username="+_username+ "&id=";
         if(resp.data.length==0)
           vm.finished = true;
         //重新定义
@@ -322,7 +322,7 @@ export default {
           this.$message.warning("所选图片图片的数量不正确");
         else{
           let vm = this;
-          let add = '/api/face/collections?id='+vm.GLOBAL.deleteList[0];
+          let add = '/api/face/collections?id='+vm.GLOBAL.deleteList[0]+"&ispublic="+vm.GLOBAL.pripassword;
           this.axios({
             method: 'get',
             url: add
@@ -396,9 +396,9 @@ export default {
     }
     if(!this.GLOBAL.globalSearch){
       this.getPic();
-      this.GLOBAL.globalSearch = false;
     }else{
-      console.log('dsadsa');
+      console.log(this.GLOBAL.globalSearch);
+      this.GLOBAL.globalSearch = false;
       this.globalSearch();
     }
   },

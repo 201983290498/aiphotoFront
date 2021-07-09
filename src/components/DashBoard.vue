@@ -12,11 +12,11 @@
               <el-dropdown placement="bottom-start">
                 <i class="iconfont search_list" >&#xe6a0;</i> 
                 <el-dropdown-menu> 
-                  <el-dropdown-item class="menuitem1"  v-if="this.GLOBAL.pripassword" @click="globalClassify('人物')">人物</el-dropdown-item>
-                  <el-dropdown-item class="menuitem1"  v-if="this.GLOBAL.pripassword" @click="globalClassify('交通工具')">交通工具</el-dropdown-item>
-                  <el-dropdown-item class="menuitem1"  v-if="this.GLOBAL.pripassword" @click="globalClassify('自然风景')">自然风景</el-dropdown-item>
-                  <el-dropdown-item class="menuitem1"  v-if="this.GLOBAL.pripassword" @click="globalClassify('建筑')">建筑</el-dropdown-item>
-                  <el-dropdown-item class="menuitem1"  v-if="this.GLOBAL.pripassword" @click="globalClassify('动物')">动物</el-dropdown-item>
+                  <el-dropdown-item class="menuitem1"  v-if="this.GLOBAL.pripassword"><span @click="globalClassify('人物')">人物</span> </el-dropdown-item>
+                  <el-dropdown-item class="menuitem1"  v-if="this.GLOBAL.pripassword"><span @click="globalClassify('交通工具')">交通工具</span></el-dropdown-item>
+                  <el-dropdown-item class="menuitem1"  v-if="this.GLOBAL.pripassword"><span @click="globalClassify('自然风景')">自然风景</span></el-dropdown-item>
+                  <el-dropdown-item class="menuitem1"  v-if="this.GLOBAL.pripassword"><span @click="globalClassify('建筑')">建筑</span></el-dropdown-item>
+                  <el-dropdown-item class="menuitem1"  v-if="this.GLOBAL.pripassword"><span @click="globalClassify('动物')">动物</span></el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown> 
             </button>

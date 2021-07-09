@@ -44,10 +44,12 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.3);
+  background: rgba(0,0,0,0.6);
+
 }
 .upload_warp_img_div1>img{  
-  max-height:60%;
+  z-index: 999;
+  max-height:80%;
   max-width: 60%;
   position: absolute;
   left: 50%;
