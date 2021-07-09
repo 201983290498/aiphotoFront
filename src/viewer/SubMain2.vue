@@ -46,6 +46,15 @@ export default {
     },
     closeDialog: function(imgcategy){
       this.showDialog = false;
+      let vm=this;
+      let address = '/api/categy?'+"username="+this.GLOBAL.username+"&ispublic=false";
+      this.axios({
+        method: "get",
+        url: address
+      }).then(function (reps){
+        vm.categy = reps.data;
+        vm.GLOBAL.pricategy = reps.data;
+      });
     }
   },
   created(){
