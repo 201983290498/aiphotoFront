@@ -163,6 +163,7 @@ export default {
           vm.$message.info("全局搜索"+this.categy+"类图片");
           this.GLOBAL.deleteStatus = true;
           this.GLOBAL.downStatus = true;
+          this.$messgae.info("进入下载图片模式");
           this.$router.push({name:"PictureListWait",params:{username: vm.GLOBAL.username,categy:vm.categy,ispublic:false}});
         }else{
           this.GLOBAL.showList = true;
@@ -181,7 +182,6 @@ export default {
       let vm = this;
       vm.categy = categy1;
       this.GLOBAL.globalSearch =true;
-      console.log(categy1);
       this.enterDeleteStatu(1);
     }
   },
