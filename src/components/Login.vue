@@ -80,6 +80,7 @@ export default {
               vm.GLOBAL.pricategy = [];
               vm.GLOBAL.downStatus = false;
               vm.GLOBAL.showList = false;
+              vm.GLOBAL.globalSearch = false;
               vm.$router.push({name: "DashBoard", params: {username: _name}});
             } else {
               vm.$message.warning("账号或密码错误,请重新输入");

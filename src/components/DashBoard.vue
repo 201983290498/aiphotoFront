@@ -8,7 +8,18 @@
         </div>
         <div class="function-wrapper">
           <div class="function-list">
-            <button class="titlebtn"><i class="iconfont">&#xe6a0;</i></button>
+            <button class="titlebtn" @click="GlobalList">    
+              <el-dropdown placement="bottom-start">
+                <i class="iconfont search_list" >&#xe6a0;</i> 
+                <el-dropdown-menu> 
+                  <el-dropdown-item class="menuitem1"  v-if="this.GLOBAL.pripassword" @click="globalClassify('人物')">人物</el-dropdown-item>
+                  <el-dropdown-item class="menuitem1"  v-if="this.GLOBAL.pripassword" @click="globalClassify('交通工具')">交通工具</el-dropdown-item>
+                  <el-dropdown-item class="menuitem1"  v-if="this.GLOBAL.pripassword" @click="globalClassify('自然风景')">自然风景</el-dropdown-item>
+                  <el-dropdown-item class="menuitem1"  v-if="this.GLOBAL.pripassword" @click="globalClassify('建筑')">建筑</el-dropdown-item>
+                  <el-dropdown-item class="menuitem1"  v-if="this.GLOBAL.pripassword" @click="globalClassify('动物')">动物</el-dropdown-item>
+                </el-dropdown-menu>
+            </el-dropdown> 
+            </button>
             <button class="titlebtn" @click="enterDeleteStatu(2)"><i class="iconfont">&#xe6c6;</i></button>
             <button class="titlebtn" @click="enterDeleteStatu(3)"><i class="iconfont">&#xea16;</i></button>          
           </div>
@@ -79,7 +90,9 @@ export default {
       privatecategy: [],
       list: [],
       openAdd: false,
-      indexStatus: 1
+      indexStatus: 1,
+      searchList: false,
+      categy: '',
     }
   },
   components:{
@@ -108,8 +121,9 @@ export default {
       var vm = this;
       if (this.GLOBAL.pripassword==false)
         this.$router.push({name: "Check2", params:{username: vm.username,categy: vm.privatecategy}});
-      else
+      else{
         this.toPrivateSub();
+      }
     },
     enterDeleteStatu(index){
       if(this.indexStatus!=index){
@@ -144,7 +158,31 @@ export default {
           this.GLOBAL.showList = true;
           this.$router.push({name:"PictureListWait",params:{username: vm.GLOBAL.username,categy:vm.GLOBAL.categy,ispublic:vm.GLOBAL.ispublic}});
         }
+      }else if(index == 1){
+        if(!this.GLOBAL.deleteStatus){
+          vm.$message.info("全局搜索"+this.categy+"类图片");
+          this.GLOBAL.deleteStatus = true;
+          this.GLOBAL.downStatus = true;
+          this.$router.push({name:"PictureListWait",params:{username: vm.GLOBAL.username,categy:vm.categy,ispublic:false}});
+        }else{
+          this.GLOBAL.showList = true;
+          this.$router.push({name:"PictureListWait",params:{username: vm.GLOBAL.username,categy:vm.GLOBAL.categy,ispublic:vm.GLOBAL.ispublic}});
+        }
       }
+    },
+    GlobalList(){
+      if(!this.GLOBAL.pripassword){
+        this.tocheck2();
+      }else{
+        this.searchList = true;
+      }
+    },
+    globalClassify(categy1){
+      let vm = this;
+      vm.categy = categy1;
+      this.GLOBAL.globalSearch =true;
+      console.log(categy1);
+      this.enterDeleteStatu(1);
     }
   },
   created() {
@@ -296,6 +334,9 @@ icon3{
 .others{
   float: right;
   padding-right: 28px;
+}
+.search_list{
+  color: #F0F3F8;
 }
 
 </style>

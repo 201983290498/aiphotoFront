@@ -151,7 +151,37 @@ export default {
         }
       });
     },
-
+    globalSearch(){
+      let _username= this.$route.params.username;
+      let _categy = this.$route.params.categy;
+      let _ispublic = this.$route.params.ispublic;
+      let vm = this;
+      vm.axios({
+        method: 'post',
+        url: '/api/b64pictures/classified',
+        data: {
+          username: _username,
+          categy: _categy
+        }
+      }).then(function(resp){
+        vm.ids = resp.data;
+        add = "/api/b64picture?username="+username+ "&id=";
+        if(resp.data.length==0)
+          vm.finished = true;
+        //重新定义
+        vm.deleteMap = new Map();
+        if(vm.GLOBAL.pictureList.length==0){
+          vm.GLOBAL.pictureList = new Map();
+          vm.GLOBAL.deleteMap = new Map();
+        }
+        for(let i=0;i<vm.ids.length;i++){
+          let id = vm.ids[i];
+          vm.getPicById(add,id,true);
+          if(i==vm.ids.length-1)
+            vm.finished = true;
+        }
+      });      
+    },
     getPicById: function(add,id,last){
       let vm = this;
       if(vm.GLOBAL.pictureList.has(id)){
@@ -364,7 +394,13 @@ export default {
       this.GLOBAL.showList = false;
       this.showList = true;
     }
-    this.getPic();
+    if(!this.GLOBAL.globalSearch){
+      this.getPic();
+      this.GLOBAL.globalSearch = false;
+    }else{
+      console.log('dsadsa');
+      this.globalSearch();
+    }
   },
   mounted(){
     if(this.GLOBAL.deleteStatus){

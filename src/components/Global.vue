@@ -13,6 +13,7 @@ var deleteList = [];
 var deleteMap = [];
 var downStatus = false;
 var showList = false;
+var globalSearch = false;
 export default
 {
     username,
@@ -27,6 +28,7 @@ export default
     ispublic,
     categy,
     downStatus,
-    showList
+    showList,
+    globalSearch
 }
 </script>
