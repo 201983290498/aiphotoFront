@@ -571,4 +571,7 @@ export default {
 .piclist li:hover{
   box-shadow: 2px 2px 2px 2px #AAAAAA;
 }
+.myul1 img{
+  border-radius: 48%;
+}
 </style>
